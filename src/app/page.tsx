@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { fetchExercises } from "./actions";
 import { useEffect, useState } from "react";
+import { Exercise } from "@/lib/interfaces";
 
 
 export default function Home() {
