@@ -1,0 +1,33 @@
+.bodyPartExerciseContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.3rem;
+    padding: 0 1.5rem;
+    width: 100%;
+    height: 100%;
+}
+
+.labelBodyPart, .labelExercise{
+    font-weight: 600;
+    font-size: .9rem;
+    padding-left: .3rem;
+}
+
+
+.bodyPartsBySelect, .exerciseBySelectBodyPart {
+    background-color: var(--bgColDropDown);
+    border-radius: 5px;
+    width: 100%;
+    height: 30px;
+    margin-right: 0.4rem;
+    font-size: medium;
+    text-align: center;
+    padding: 0 0.5rem;
+    border: 1px solid -internal-auto-base(light-dark(#767676, #858585), currentColor);
+}
+
+.bodyPartOption, .exerciseOption {
+    text-align: left;
+}
