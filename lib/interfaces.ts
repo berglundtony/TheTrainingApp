@@ -1,28 +1,40 @@
 export interface Exercise {
-    id: string;                   
-    name: string;                
-    bodyPart: string;            
-    target: string;              
-    secondaryMuscles: string[];   
-    equipment: string;          
-    gifUrl: string;               
-    instructions: string[];       
+    exerciseId: string;
+    name: string;
+    gifUrl: string;
+    instructions: string[];
+    targetMuscles: string[];
+    bodyParts: string[];
+    equipments: string[];
+    secondaryMuscles: string[];      
 }
 
 export interface ExerciseResponse {
-    totalExercises: number;
-        exercises: Exercise[]; 
+    success: boolean;
+    data: {
+        previousPage: string | null;
+        nextPage: string | null;
+        totalPages: number;
+        totalExercises: number;
+        currentPage: number;
+        exercises: Exercise[];
+    };
 };
 
 export interface ExerciseDropDown {
-    id: string;
+    exerciseId: string;
     name: string;
 }
     
 export interface BodyPart {
-    id: string;
     name: string;
 }
+
+export interface BodyPartResponse{
+    success: boolean;
+    data: BodyPart[];
+}
+
 export interface TransitionOptions {
     shallow?: boolean;
     locale?: string | false;

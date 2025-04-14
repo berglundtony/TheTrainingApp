@@ -1,15 +1,15 @@
-import { BodyPart, Exercise } from "@/lib/interfaces";
+import { BodyPart, Exercise, ExerciseResponse } from "@/lib/interfaces";
 
 // https://exercisedb-api.vercel.app/api/v1/exercises?offset=0&limit=10
+const MAIN_URL ="https://exercisedb-api.vercel.app/api/v1"
 
 
 export const fetchExercises = async (): Promise<Exercise[]> => {
-    const url = 'https://exercisedb.p.rapidapi.com/exercises?limit=10&offset=10';
+    const url = `${MAIN_URL}/exercises`;
     const options = {
         method: 'GET',
         headers: {
-            'x-rapidapi-key': 'fffba84357msh7ca93fb57ea422ep14d282jsn1adc2f95fc89',
-            'x-rapidapi-host': 'exercisedb.p.rapidapi.com'
+            Accept: '*/*'
         }
     };
     try {
@@ -35,20 +35,18 @@ export async function fetchBodyParts(): Promise<BodyPart[]> {
         console.log('Returning cached body parts');
         return cachedBodyParts;
     }
-    const url = 'https://exercisedb.p.rapidapi.com/exercises/bodyPartList';
+    const url = `${MAIN_URL}/bodyparts`;
     const options = {
         method: 'GET',
         headers: {
-            'x-rapidapi-key': 'fffba84357msh7ca93fb57ea422ep14d282jsn1adc2f95fc89',
-            'x-rapidapi-host': 'exercisedb.p.rapidapi.com'
+            Accept: '*/*'
         }
     };
     try {
         const response = await fetch(url, options);
         if (!response.ok) throw new Error(`HTTP error! Status: ${(response).status}`);
         const data: string[] = await response.json();
-        cachedBodyParts = data.map((bodypart, index) => ({
-            id: index.toString(), 
+        cachedBodyParts = data.map((bodypart) => ({
             name: typeof bodypart === "string" ? bodypart.charAt(0).toUpperCase() + bodypart.slice(1) : "Unknown",
         }));
         return cachedBodyParts;
@@ -59,20 +57,28 @@ export async function fetchBodyParts(): Promise<BodyPart[]> {
 }
 
 
-export async function fetchExerciseByBodyPart(bodyPart: string): Promise<Exercise[]> {
-    if (!bodyPart || bodyPart === "none") {
-        console.warn("fetchExerciseByBodyPart: Ogiltigt bodyPart", bodyPart);
-        return [];
+export async function fetchExerciseByBodyPart(name: string): Promise<ExerciseResponse> {
+    if (!name || name === "none") {
+        console.warn("fetchExerciseByBodyPart: Ogiltigt bodyPart", name);
+        return {
+            success: false,
+            data: {
+                previousPage: null,
+                nextPage: null,
+                totalPages: 0,
+                totalExercises: 0,
+                currentPage: 0,
+                exercises: []
+            }
+        };
     }
-    const url = `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${encodeURIComponent(bodyPart)}?limit=10&offset=0`;
-    const options = {
-        method: 'GET',
-        headers: {
-            'x-rapidapi-key': 'fffba84357msh7ca93fb57ea422ep14d282jsn1adc2f95fc89',
-            'x-rapidapi-host': 'exercisedb.p.rapidapi.com'
-        }
-    };
-
+    const url = `${MAIN_URL}/bodyparts/${encodeURIComponent(name)}/exercises}`;
+        const options = {
+            method: 'GET',
+            headers: {
+                Accept: '*/*'
+            }
+        };
     try {
         const response = await fetch(url, options);
 
@@ -82,39 +88,70 @@ export async function fetchExerciseByBodyPart(bodyPart: string): Promise<Exercis
 
         const result: Exercise[] = await response.json();
         console.log(result);
-        return result;
+        return {
+            success: true,
+            data: {
+                previousPage: null,
+                nextPage: null,
+                totalPages: 1,
+                totalExercises: result.length,
+                currentPage: 1,
+                exercises: result
+            }
+        };
     } catch (error) {
         console.error(error);
-        return [];
+        return {
+            success: false,
+            data: {
+                previousPage: null,
+                nextPage: null,
+                totalPages: 0,
+                totalExercises: 0,
+                currentPage: 0,
+                exercises: []
+            }
+        };
     }
 }
 
-export async function fetchExerciseByName(name: string): Promise<Exercise> {
-    if (!name || name === "none") {
-        console.warn("fetchExerciseByName: Ogiltigt namn", name);
-        return {} as Exercise; // Returnera en tom Exercise-objekt istället för en tom sträng
+export async function fetchExerciseById(exerciseId: string): Promise<ExerciseResponse> {
+    if (!exerciseId || exerciseId === "none") {
+        console.warn("fetchExerciseByName: Ogiltigt namn", exerciseId);
+        return {} as ExerciseResponse; // Returnera en tom Exercise-objekt istället för en tom sträng
     }
-    const url = `https://exercisedb.p.rapidapi.com/exercises/name/${encodeURIComponent(name)}`;
+    const url = `${MAIN_URL}/exercises/${encodeURIComponent(exerciseId)}`;
     const options = {
         method: 'GET',
         headers: {
-            'x-rapidapi-key': 'fffba84357msh7ca93fb57ea422ep14d282jsn1adc2f95fc89',
-            'x-rapidapi-host': 'exercisedb.p.rapidapi.com'
+            Accept: '*/*'
         }
     };
-
     try {
         const response = await fetch(url, options);
 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        const result: Exercise[] = await response.json();
+        const result: ExerciseResponse = await response.json();
         console.log("resultat:" + result);
-        return result.length > 0 ? result[0] : {} as Exercise; // Returnera första objektet eller tomt objekt om inget hittades
+        return {
+            success: true,
+            data: result.data
+        }
     } catch (error) {
         console.error(error);
-        return {} as Exercise; 
+        return {
+            success: false,
+            data: {
+                previousPage: null,
+                nextPage: null,
+                totalPages: 0,
+                totalExercises: 0,
+                currentPage: 0,
+                exercises: []
+            }
+        } as ExerciseResponse;
     }
 }
 
