@@ -56,9 +56,25 @@ export interface Week {
     name: string;
 }
 
+export interface Set {
+    id: string;
+    amount: number;
+}
+export interface Rep {
+    id: string;
+    amount: number;
+}
+
 export interface WeekDayDropDownProps {
     selectedWeek: string;
     selectedDay: string;
     onChangeWeek: (val: string) => void;
     onChangeDay: (val: string) => void;
+}
+
+export interface SetRepDropDownProps {
+    selectedSet: string;
+    selectedRep: string;
+    onChangeSet: (val: string) => void;
+    onChangeRep: (val: string) => void;
 }
