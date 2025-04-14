@@ -1,10 +1,9 @@
-import { BodyPart, Exercise, ExerciseResponse } from "@/lib/interfaces";
+import { BodyPart, Exercise, ExerciseDropDown, ExerciseResponse, SingleExerciseResponse} from "@/lib/interfaces";
 
 // https://exercisedb-api.vercel.app/api/v1/exercises?offset=0&limit=10
-const MAIN_URL ="https://exercisedb-api.vercel.app/api/v1"
+const MAIN_URL = "https://exercisedb-api.vercel.app/api/v1"
 
-
-export const fetchExercises = async (): Promise<Exercise[]> => {
+export const fetchExercises = async (): Promise<ExerciseResponse> => {
     const url = `${MAIN_URL}/exercises`;
     const options = {
         method: 'GET',
@@ -19,22 +18,48 @@ export const fetchExercises = async (): Promise<Exercise[]> => {
             throw new Error(`HTTP error! Status: ${res.status}`);
         }
         const responseData = await res.json();
-        console.log("Fetched data:", responseData); // ✅ Debugga API-svaret
+        console.log("Fetched data:", responseData);
 
-        return responseData;
+        return responseData.data;
     } catch (error) {
         console.error("Error fetching exercises:", error);
-        return []; 
+        return { 
+            success: false, 
+            data: {
+                exercises: []
+            }
+        };
+    }
+};
+export async function fetchExerciseForDropDown(): Promise<ExerciseDropDown[]> {
+
+    const url = `${MAIN_URL}/exercises`;
+    console.log(url);
+    try {
+        const response = await fetch(url);
+        console.log(`Efter fetch: ${response}`)
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const json = await response.json();
+        console.log("Raw response JSON:", json);
+        console.log(json);
+
+        return json.data.exercises.map((exercise: { exerciseId?: string; name?: string; bodyParts?: string[] }): ExerciseDropDown => ({
+            exerciseId: exercise.exerciseId || "",
+            name: exercise.name || "",
+            bodyParts: Array.isArray(exercise.bodyParts) ? exercise.bodyParts : (exercise.bodyParts ? [exercise.bodyParts] : []),
+        }))
+    } catch (error) {
+        console.error(error);
+        return [];
     }
 };
 
-let cachedBodyParts: BodyPart[] | null = null;
-
 export async function fetchBodyParts(): Promise<BodyPart[]> {
-    if (cachedBodyParts) {
-        console.log('Returning cached body parts');
-        return cachedBodyParts;
-    }
+    let bodyParts: BodyPart[];
+
     const url = `${MAIN_URL}/bodyparts`;
     const options = {
         method: 'GET',
@@ -45,82 +70,63 @@ export async function fetchBodyParts(): Promise<BodyPart[]> {
     try {
         const response = await fetch(url, options);
         if (!response.ok) throw new Error(`HTTP error! Status: ${(response).status}`);
-        const data: string[] = await response.json();
-        cachedBodyParts = data.map((bodypart) => ({
-            name: typeof bodypart === "string" ? bodypart.charAt(0).toUpperCase() + bodypart.slice(1) : "Unknown",
+        const json = await response.json();
+        const data: { name: string }[] = json.data;
+        console.log("HÄR" + " " + data)
+        bodyParts = data.map((bodypart) => ({
+            name: typeof bodypart.name === "string" ? (bodypart.name).charAt(0).toUpperCase() + (bodypart.name).slice(1) : "Unknown",
         }));
-        return cachedBodyParts;
+        return bodyParts;
     } catch (error) {
         console.error("Error fetching body parts:", error);
         return [];
     }
+    return []; 
 }
 
-
-export async function fetchExerciseByBodyPart(name: string): Promise<ExerciseResponse> {
-    if (!name || name === "none") {
-        console.warn("fetchExerciseByBodyPart: Ogiltigt bodyPart", name);
-        return {
-            success: false,
-            data: {
-                previousPage: null,
-                nextPage: null,
-                totalPages: 0,
-                totalExercises: 0,
-                currentPage: 0,
-                exercises: []
-            }
-        };
-    }
-    const url = `${MAIN_URL}/bodyparts/${encodeURIComponent(name)}/exercises}`;
-        const options = {
-            method: 'GET',
-            headers: {
-                Accept: '*/*'
-            }
-        };
+export async function fetchExerciseByBodyPart(bodyPartName: string): Promise<ExerciseDropDown[]> {
+    if (!bodyPartName || bodyPartName === "none") {
+        console.warn("fetchExerciseByBodyPart: Ogiltigt bodyPart", bodyPartName);
+        return [];
+    };
+    const url = `${MAIN_URL}/bodyparts/${encodeURIComponent(bodyPartName)}/exercises`;
+    const options = {
+        method: 'GET',
+        headers: {
+            Accept: '*/*'
+        }
+    };
+    console.log(url);
     try {
         const response = await fetch(url, options);
+        console.log(`Efter fetch: ${response}`)
 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
+        // const json = await response.json();
+        const json = await response.json();
+        console.log("Raw response JSON:", json);
+        console.log(json);
 
-        const result: Exercise[] = await response.json();
-        console.log(result);
-        return {
-            success: true,
-            data: {
-                previousPage: null,
-                nextPage: null,
-                totalPages: 1,
-                totalExercises: result.length,
-                currentPage: 1,
-                exercises: result
-            }
-        };
+        return json.data.exercises.map((exercise: { exerciseId?: string; name?: string; bodyParts?: string[] }): ExerciseDropDown => ({
+            exerciseId: exercise.exerciseId || "",
+            name: exercise.name || "",
+            bodyParts: exercise?.bodyParts || []
+        }))
     } catch (error) {
         console.error(error);
-        return {
-            success: false,
-            data: {
-                previousPage: null,
-                nextPage: null,
-                totalPages: 0,
-                totalExercises: 0,
-                currentPage: 0,
-                exercises: []
-            }
-        };
+        return [];
     }
-}
+};
 
-export async function fetchExerciseById(exerciseId: string): Promise<ExerciseResponse> {
+export async function fetchExerciseById(exerciseId: string): Promise<Exercise | null> {
     if (!exerciseId || exerciseId === "none") {
         console.warn("fetchExerciseByName: Ogiltigt namn", exerciseId);
-        return {} as ExerciseResponse; // Returnera en tom Exercise-objekt istället för en tom sträng
+        return null;
     }
     const url = `${MAIN_URL}/exercises/${encodeURIComponent(exerciseId)}`;
+    console.log(url);
     const options = {
         method: 'GET',
         headers: {
@@ -129,29 +135,16 @@ export async function fetchExerciseById(exerciseId: string): Promise<ExerciseRes
     };
     try {
         const response = await fetch(url, options);
-
+        console.log(`efter fetch${response}`)
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        const result: ExerciseResponse = await response.json();
-        console.log("resultat:" + result);
-        return {
-            success: true,
-            data: result.data
-        }
+        const result: SingleExerciseResponse = await response.json();
+        console.log("resultat:", result);
+        return result.success ? result.data : {} as Exercise;
     } catch (error) {
         console.error(error);
-        return {
-            success: false,
-            data: {
-                previousPage: null,
-                nextPage: null,
-                totalPages: 0,
-                totalExercises: 0,
-                currentPage: 0,
-                exercises: []
-            }
-        } as ExerciseResponse;
     }
+    return {} as Exercise;
 }
 

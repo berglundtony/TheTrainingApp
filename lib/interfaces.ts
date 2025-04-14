@@ -12,18 +12,19 @@ export interface Exercise {
 export interface ExerciseResponse {
     success: boolean;
     data: {
-        previousPage: string | null;
-        nextPage: string | null;
-        totalPages: number;
-        totalExercises: number;
-        currentPage: number;
         exercises: Exercise[];
     };
 };
 
+export interface SingleExerciseResponse {
+    success: boolean;
+    data: Exercise;
+}
+
 export interface ExerciseDropDown {
     exerciseId: string;
     name: string;
+    bodyParts: string[];
 }
     
 export interface BodyPart {
@@ -33,6 +34,12 @@ export interface BodyPart {
 export interface BodyPartResponse{
     success: boolean;
     data: BodyPart[];
+}
+
+export interface Props {
+    allExercises: ExerciseDropDown[];
+    filteredExercises: ExerciseDropDown[];
+    selected: string;
 }
 
 export interface TransitionOptions {

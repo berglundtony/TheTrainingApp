@@ -1,7 +1,8 @@
 :root {
-  --background: #ffffff;
+  --background: #859BB4;
   --foreground: #171717;
   --bgColDropDown: #cccccc;
+  --fontSizeText: 1.2rem;
 }
 
 @media (prefers-color-scheme: dark) {

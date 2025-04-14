@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import WeekDayDropDown from "../week-day-dropdown/WeekDayDropDown";
 
-import { saveSelection } from "@/lib/actions";
+// import { saveSelection } from "@/lib/actions";
 
 export default function CreateWorkoutClient() {
     const [selectedWeek, setSelectedWeek] = useState("none");
@@ -12,14 +12,14 @@ export default function CreateWorkoutClient() {
 
 
 useEffect(() => {
-    if (selectedWeek !== "none" && selectedDay !== "none" && !hasSaved) {
-        saveSelection(selectedWeek, selectedDay).then((ok: boolean) => {
-            if (ok) {
-            console.log("Saved automatically!");
-            setHasSaved(true);
-            }
-        });
-    }
+    // if (selectedWeek !== "none" && selectedDay !== "none" && !hasSaved) {
+    //     saveSelection(selectedWeek, selectedDay).then((ok: boolean) => {
+    //         if (ok) {
+    //         console.log("Saved automatically!");
+    //         setHasSaved(true);
+    //         }
+    //     });
+    // }
 }, [selectedWeek, selectedDay, hasSaved]);
 
 return (
