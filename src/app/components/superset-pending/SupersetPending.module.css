@@ -3,6 +3,7 @@
     justify-content: flex-start;
     align-items: center;
     padding: 1.5rem;
+    margin-left:.3rem;
 }
 
 .label {
@@ -23,11 +24,10 @@
     height: 28px;
     border-radius: 9999px;
     position: relative;
-    /* så vi kan absolutpositionera pricken */
     border: 2px solid transparent;
     outline: 2px solid white;
     padding: 0;
-    background-color: #fbcfe8;
+    background-color: var(--bgColDropDown);
     transition: background-color 0.3s ease;
     cursor: pointer;
 }

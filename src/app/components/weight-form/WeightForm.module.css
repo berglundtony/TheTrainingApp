@@ -19,6 +19,7 @@
       width: 3rem;
       font-weight: 400;
       font-size: .9rem;
-      padding: .3rem
-
+      padding: .3rem;
+      border-radius: .3rem;
+      border:1px black solid;
   }
