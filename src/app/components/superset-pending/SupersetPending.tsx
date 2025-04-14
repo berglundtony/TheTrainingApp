@@ -19,7 +19,7 @@ export default function SupersetPending() {
     return (
         <div className={styles.container}>
             <label className={styles.label}>
-                <span className={styles.text}>{selected.superset1 ? 'Superset 1' : 'Superset 2'}</span>
+                <span className={styles.text}>{selected.superset1 ? 'Superset 2' : 'Superset 1'}</span>
                 <button onClick={() => toggle('superset1')} className={`${styles.switch} ${selected.superset1 ? styles.switchOn : styles.switchOff}`}>
                     <div className={`${styles.thumb} ${selected.superset1 ? styles.thumbOn : styles.thumbOff}`} />
                 </button>

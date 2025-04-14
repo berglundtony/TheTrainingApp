@@ -10,3 +10,9 @@
 .title {
   margin-left: 1.5rem;
 }
+
+.inputBoxesWrapper{
+  display:flex;
+  align-items: center;
+  margin-top:.3rem;
+}
