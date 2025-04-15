@@ -1,0 +1,56 @@
+.container {
+    display: flex;
+    /* justify-content: flex-start; */
+    flex: 1;
+    gap: 1rem;
+    padding: 1.5rem;
+    width: 100%;
+}
+
+.labelSetRep {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: flex-start;
+    gap: 0.1rem;
+}
+
+.labelText {
+    padding-left: 0.6rem;
+    font-weight: 600;
+    font-size: .8rem;
+}
+
+.selectSetRep {
+    background-color: var(--bgColDropDown);
+    border-radius: 5px;
+    width: 100%;
+    height: 30px;
+    margin-right: 0.4rem;
+    border-radius: 8px;
+    font-size: medium;
+    text-align: center;
+    padding: 0 0.5rem;
+    border: 1px solid -internal-auto-base(light-dark(#767676, #858585), currentColor);
+    width: 100%;
+}
+
+.selectSetRepOption {
+    text-align: left;
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 1rem 0;
+    }
+
+    .labelSetRep {
+        width: 100%;
+    }
+
+    .selectSetRep {
+        width: 100%;
+    }
+}

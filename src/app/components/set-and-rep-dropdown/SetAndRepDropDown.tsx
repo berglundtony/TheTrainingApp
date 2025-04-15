@@ -1,43 +1,52 @@
 "use client";
-import styles from './weekdaydropdown.module.css';
-import { Set, Rep,SetRepDropDownProps } from "@/lib/interfaces";
+import styles from './SetAndRepDropDown.module.css';
+import { Set, Rep,Rest, SetRepRestDropDownProps } from "@/lib/interfaces";
 
 
 export default function SetAndRepDropDown({
     selectedSet,
     selectedRep,
+    selectedRest,
     onChangeSet,
     onChangeRep,
-}: SetRepDropDownProps) {
+    onChangeRest
+}: SetRepRestDropDownProps) {
 
     const set: Set[] =
         [
-            { id: 'one', amount: 1 },
-            { id: 'two', amount: 2 },
-            { id: 'three', amount: 3 },
-            { id: 'four', amount: 4 },
-            { id: 'five', amount: 5 },
-            { id: 'six', amount: 6 },
+            { id: '1', amount: "1" },
+            { id: '2', amount: "2" },
+            { id: '3', amount: "3" },
+            { id: '4', amount: "4" },
+            { id: '5', amount: "5" },
+            { id: '6', amount: "6" },
         ]
     const repetitions: Rep[] =
         [
-            { id: 'one', amount: 1 },
-            { id: 'two', amount: 2 },
-            { id: 'three', amount: 3 },
-            { id: 'four', amount: 4 },
-            { id: 'five', amount: 5 },
-            { id: 'six', amount: 6 },
-            { id: 'seven', amount: 7 },
-            { id: 'eight', amount: 8 },
-            { id: 'nine', amount: 9 },
-            { id: 'ten', amount: 10 },
-            { id: 'eleven', amount: 11 },
-            { id: 'twelve', amount: 12 },
+            { id: '1', amount: "1" },
+            { id: '2', amount: "2" },
+            { id: '3', amount: "3" },
+            { id: '4', amount: "4" },
+            { id: '5', amount: "5" },
+            { id: '6', amount: "6" },
+            { id: '7', amount: "7" },
+            { id: '8', amount: "8" },
+            { id: '9', amount: "9" },
+            { id: '10', amount: "10" },
+            { id: '11', amount: "11" },
+            { id: '12', amount: "12" },
         ];
+    const rest: Rest[] =
+        [
+            { id: '1', amount: '60' },
+            { id: '2', amount: '90' },
+            { id: '3', amount: '120' },
+        ]
 
     return (
         <div className={styles.container}>
-            <label htmlFor="week" className={styles.labelSetRep}>Set:</label>
+            <label htmlFor="week" className={styles.labelSetRep}>
+            <span className={styles.labelText}>Set:</span>
             <select value={selectedSet} onChange={(e) => onChangeSet(e.target.value)} id='week' className={styles.selectSetRep}>
                 <option value="none">- - - Select set - - -</option>
                 {set.map((s) => (
@@ -45,8 +54,10 @@ export default function SetAndRepDropDown({
                         {s.amount}
                     </option>
                 ))}
-            </select>
-            <label htmlFor="day" className={styles.labelSetRep}>Repetitions:</label>
+                </select>
+            </label>
+            <label htmlFor="day" className={styles.labelSetRep}>
+            <span className={styles.labelText}>Rep:</span>
             <select value={selectedRep} onChange={(e) => onChangeRep(e.target.value)} id='rep' className={styles.selectSetRep}>
                 <option value="none">- - - Select repetions - - -</option>
                 {repetitions.map((r) => (
@@ -54,7 +65,19 @@ export default function SetAndRepDropDown({
                         {r.amount}
                     </option>
                 ))}
-            </select>
+                </select>
+            </label>
+            <label htmlFor="rest" className={styles.labelSetRep}>
+                <span className={styles.labelText}>Rest:</span>
+                <select value={selectedRest} onChange={(e) => onChangeRest(e.target.value)} id='rep' className={styles.selectSetRep}>
+                    <option value="none">- - - Select resttime - - -</option>
+                    {rest.map((r) => (
+                        <option key={r.id} value={r.amount} className={styles.selectSetRepOption}>
+                            {r.amount}
+                        </option>
+                    ))}
+                </select>
+            </label>
         </div>
     );
 }

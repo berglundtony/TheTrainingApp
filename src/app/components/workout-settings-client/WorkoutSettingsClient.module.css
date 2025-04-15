@@ -1,0 +1,38 @@
+.inputBoxesWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.3rem;
+    padding: 1.5rem;
+}
+
+
+.inputBoxesWrapper> :nth-child(1) {
+    flex: 0 0 12%;
+}
+
+.inputBoxesWrapper> :nth-child(2) {
+    flex: 0 0 10%;
+}
+
+.inputBoxesWrapper> :nth-child(3),
+.inputBoxesWrapper> :nth-child(4),
+.inputBoxesWrapper> :nth-child(5) {
+    flex: 0 0 72%;
+}
+
+@media (max-width: 768px) {
+    .inputBoxesWrapper> :nth-child(1) {
+        flex: 0 0 40%;
+    }
+
+    .inputBoxesWrapper> :nth-child(2) {
+        flex: 0 0 40%;
+    }
+
+    .inputBoxesWrapper> :nth-child(3),
+    .inputBoxesWrapper> :nth-child(4),
+    .inputBoxesWrapper> :nth-child(5) {
+        flex: 0 0 100%;
+    }
+}

@@ -1,30 +1,34 @@
 "use client";
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { ExerciseDropDown, Props } from "@/lib/interfaces";
-import { ChangeEvent, useMemo, useState } from "react";
+import { ExerciseDropDown } from "@/lib/interfaces";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import styles from "./bodypartexercise.module.css";
 
 
-export default function BodyPartExerciseClient({ selected, filteredExercises, allExercises }: Props) {
+export default function BodyPartExerciseClient({
+    allExercises,
+    filteredExercises,
+    selected,
+    onChangeExercise,
+    setBodyPart,
+}: {
+    allExercises: ExerciseDropDown[],
+    filteredExercises: ExerciseDropDown[],
+    selected: string,
+    onChangeExercise: (val: string) => void,
+    setBodyPart: (bodyPart: string) => void
+}) {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const [selectedBodyPart, setSelectedBodyPart] = useState(selected || 'none');
     const [selectedExercise, setSelectedExercise] = useState("none");
     console.log("Filtered exercises being passed into BodyPartExerciseClient:", filteredExercises);
+    setBodyPart(selectedBodyPart);
    
     const bodyParts = useBodyParts(allExercises);
     console.log('Body parts:', bodyParts);
-
-    // useEffect(() => {
-    //     console.log("=== Alla övningar ===");
-    //     allExercises.forEach(ex => {
-    //         console.log("Id:", ex.exerciseId);
-    //         console.log("Name:", ex.name);
-    //         console.log("Target:", ex.bodyParts); // ← här ska du se vad som saknas
-    //     });
-    // }, [allExercises]);
 
     const handleSelectedBodyPart = (e: ChangeEvent<HTMLSelectElement>) => {
         const value = e.currentTarget.value;
@@ -43,6 +47,7 @@ export default function BodyPartExerciseClient({ selected, filteredExercises, al
 
     const handleSelectedExercise = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const value = e.target.value;
+        onChangeExercise(value);
         if (value === selected) return;
 
         const newParams = new URLSearchParams(searchParams.toString());
@@ -55,6 +60,12 @@ export default function BodyPartExerciseClient({ selected, filteredExercises, al
         console.log(`Replacing URL with: ${pathname}?${newParams.toString()}`);
         router.push(`${pathname}?${newParams.toString()}`);
     };
+
+    useEffect(() => {
+        if (!selected && filteredExercises.length > 0) {
+            onChangeExercise(filteredExercises[0].exerciseId);
+        }
+    }, [selected, filteredExercises, onChangeExercise]);
 
     return (
         <div className={styles.bodyPartExerciseContainer}>
