@@ -2,7 +2,7 @@
       display: flex;
       justify-content: flex-start;
       align-items: flex-start;
-      padding: .5rem 0 0 .5rem;
+      padding: .4rem 0 0 .5rem;
   }
 
   .label {
@@ -11,7 +11,7 @@
       align-items: flex-start;
       font-size: 0.78rem;
       font-weight: 600;
-      gap: 0.2rem;
+      gap: 0.3rem;
   }
 
   input.weightInput {
@@ -26,6 +26,6 @@
   }
 
   .kilo{
-    margin: 1.3rem 0 0 0;
+    margin: 1.5rem 0 0 0;
     font-size: .8rem;
   }
