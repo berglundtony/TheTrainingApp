@@ -1,28 +1,38 @@
 "use client";
 
-import styles from './SupersetPending.module.css';
 import { useState } from 'react';
+import styles from './SupersetPending.module.css';
+export default function SupersetPending({
+    superset,
+    onChange,
+}: {
+    superset: boolean; // Superset är en boolean
+    onChange: (value: boolean) => void; // onChange ska hantera en boolean
+}) {
+    const [selected, setSelected] = useState<boolean>(superset);
 
-export default function SupersetPending() {
-    const [selected, setSelected] = useState({
-        superset1: false,
-        superset2: false,
-    });
-
-    const toggle = (key: 'superset1' | 'superset2') => {
-        setSelected((prev) => ({
-            ...prev,
-            [key]: !prev[key],
-        }));
+    const toggle = () => {
+        const newSupersetValue = !selected;
+        setSelected(newSupersetValue);
+        onChange(newSupersetValue); 
     };
 
     return (
         <div className={styles.container}>
             <label className={styles.label}>
-                <span className={styles.text}>{selected.superset1 ? 'Superset 1' : 'Superset 2'}</span>
-                <button onClick={() => toggle('superset1')} className={`${styles.switch} ${selected.superset1 ? styles.switchOn : styles.switchOff}`}>
-                    <div className={`${styles.thumb} ${selected.superset1 ? styles.thumbOn : styles.thumbOff}`} />
-                </button>
+                <span className={styles.text}>
+                    {superset ? "Superset 2" : "Superset 1"} {/* Ändrar text baserat på boolean */}
+                </span>
+                <input
+                    type="checkbox"
+                    checked={superset}
+                    onChange={toggle}
+                    className={styles.hiddenCheckbox}
+                    id="supersetToggle"
+                />
+                <div className={`${styles.switch} ${superset ? styles.switchOn : styles.switchOff}`}>
+                    <div className={`${styles.thumb} ${superset ? styles.thumbOn : styles.thumbOff}`} />
+                </div>
             </label>
         </div>
     );

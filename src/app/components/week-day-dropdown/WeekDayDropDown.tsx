@@ -31,19 +31,19 @@ export default function WeekDayDropDown({
     return (
         <div className={styles.container}>
             <label htmlFor="week" className={styles.labelweek}>Week:</label>
-            <select value={selectedWeek} onChange={(e) => onChangeWeek(e.target.value)} id='week' className={styles.selectWeekDay}>
+            <select value={selectedWeek} onChange={(e) => onChangeWeek(e.target.value)} id='week' name='week' className={styles.selectWeekDay}>
                 <option value="none">- - - Select a week - - -</option>
                 {week.map((day) => (
-                    <option key={day.id} value={day.id} className={styles.selectWeekDayOption}>
+                    <option key={day.id} value={day.name} className={styles.selectWeekDayOption}>
                         {day.name}
                     </option>
                 ))}
             </select>
             <label htmlFor="day" className={styles.labelday}>Day:</label>
-            <select value={selectedDay} onChange={(e) => onChangeDay(e.target.value)} id='day' className={styles.selectWeekDay}>
+            <select value={selectedDay} onChange={(e) => onChangeDay(e.target.value)} id='day' name='day' className={styles.selectWeekDay}>
                 <option value="none">- - - Select a day - - -</option>
                 {daysOfWeek.map((day) => (
-                    <option key={day.id} value={day.id} className={styles.selectWeekDayOption}>
+                    <option key={day.id} value={day.name} className={styles.selectWeekDayOption}>
                         {day.name}
                     </option>
                 ))}

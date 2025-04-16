@@ -1,59 +1,79 @@
 "use client";
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { ExerciseDropDown, Props } from "@/lib/interfaces";
-import { ChangeEvent, useMemo, useState } from "react";
+import { ExerciseDropDown } from "@/lib/interfaces";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import styles from "./bodypartexercise.module.css";
 
-
-export default function BodyPartExerciseClient({ selected, filteredExercises, allExercises }: Props) {
+export default function BodyPartExerciseClient({
+    allExercises,
+    filteredExercises,
+    selected,
+    onChangeExercise,
+    setBodyPart,
+}: {
+    allExercises: ExerciseDropDown[];
+    filteredExercises: ExerciseDropDown[];
+    selected: string;
+    onChangeExercise: (val: string) => void;
+    setBodyPart: (bodyPart: string) => void;
+}) {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    const [selectedBodyPart, setSelectedBodyPart] = useState(selected || 'none');
-    const [selectedExercise, setSelectedExercise] = useState("none");
-    console.log("Filtered exercises being passed into BodyPartExerciseClient:", filteredExercises);
-   
-    const bodyParts = useBodyParts(allExercises);
-    console.log('Body parts:', bodyParts);
 
-    // useEffect(() => {
-    //     console.log("=== Alla övningar ===");
-    //     allExercises.forEach(ex => {
-    //         console.log("Id:", ex.exerciseId);
-    //         console.log("Name:", ex.name);
-    //         console.log("Target:", ex.bodyParts); // ← här ska du se vad som saknas
-    //     });
-    // }, [allExercises]);
+    const bodyParts = useBodyParts(allExercises);
+
+    const [selectedBodyPart, setSelectedBodyPart] = useState<string>("none");
+    const [selectedExercise, setSelectedExercise] = useState<string>("none");
+
+    // Synka bodypart till parent när det ändras
+    useEffect(() => {
+        if (selectedBodyPart !== "none") {
+            setBodyPart(selectedBodyPart);
+        }
+    }, [selectedBodyPart, setBodyPart]);
+
+    // Initialisera val vid första render
+    useEffect(() => {
+        if (filteredExercises.length > 0 && selected === "") {
+            const firstExercise = filteredExercises[0].exerciseId;
+            setSelectedExercise(firstExercise);
+            onChangeExercise(firstExercise);
+
+            // Uppdatera URL
+            const newParams = new URLSearchParams(searchParams.toString());
+            newParams.set("exercise", firstExercise);
+            router.replace(`${pathname}?${newParams.toString()}`);
+        }
+    }, [filteredExercises, selected, onChangeExercise, pathname, router, searchParams]);
 
     const handleSelectedBodyPart = (e: ChangeEvent<HTMLSelectElement>) => {
         const value = e.currentTarget.value;
-        if (value === selected) return;
+        setSelectedBodyPart(value);
 
         const newParams = new URLSearchParams(searchParams.toString());
         if (value === "none") {
             newParams.delete("filterBy");
         } else {
             newParams.set("filterBy", value.toLowerCase());
-            setSelectedBodyPart(value);
         }
-        newParams.delete("exercise");
+        newParams.delete("exercise"); // rensa val när man ändrar bodypart
         router.replace(`${pathname}?${newParams.toString()}`);
     };
 
-    const handleSelectedExercise = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const value = e.target.value;
-        if (value === selected) return;
+    const handleSelectedExercise = (e: ChangeEvent<HTMLSelectElement>) => {
+        const value = e.currentTarget.value;
+        setSelectedExercise(value);
+        onChangeExercise(value);
 
         const newParams = new URLSearchParams(searchParams.toString());
         if (value === "none") {
             newParams.delete("exercise");
         } else {
             newParams.set("exercise", value);
-            setSelectedExercise(value);
         }
-        console.log(`Replacing URL with: ${pathname}?${newParams.toString()}`);
-        router.push(`${pathname}?${newParams.toString()}`);
+        router.replace(`${pathname}?${newParams.toString()}`);
     };
 
     return (
@@ -66,15 +86,11 @@ export default function BodyPartExerciseClient({ selected, filteredExercises, al
                 id="bodyPart"
             >
                 <option key="-1" value="none">- - - Choose body part - - -</option>
-                {bodyParts.length > 0 ? (
-                    bodyParts.map((b, index) => (
-                        <option className={styles.bodyPartOption} key={index} value={b}>
-                            {b.charAt(0).toUpperCase() + b.slice(1)}
-                        </option>
-                    ))
-                ) : (
-                    <option disabled>Loading body parts...</option>
-                )}
+                {bodyParts.map((b, index) => (
+                    <option key={index} value={b} className={styles.bodyPartOption}>
+                        {b.charAt(0).toUpperCase() + b.slice(1)}
+                    </option>
+                ))}
             </select>
 
             {filteredExercises.length > 0 && (
@@ -89,15 +105,15 @@ export default function BodyPartExerciseClient({ selected, filteredExercises, al
                     >
                         <option key="-1" value="none">- - - Choose exercise - - -</option>
                         {filteredExercises.map((b) => (
-                            <option className={styles.exerciseOption} key={b.exerciseId} value={b.exerciseId}>
+                            <option key={b.exerciseId} value={b.exerciseId} className={styles.exerciseOption }>
                                 {b.name.charAt(0).toUpperCase() + b.name.slice(1)}
                             </option>
                         ))}
                     </select>
-                </>  
+                </>
             )}
         </div>
-    )
+    );
 }
 
 export function useBodyParts(exercises: ExerciseDropDown[]): string[] {

@@ -1,0 +1,48 @@
+.inputBoxesWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.3rem;
+    padding: 1.5rem;
+    width: 100%;
+}
+
+.setRepRestArea {
+    display: flex;
+    gap: 1rem;
+    flex: 1 1 58%;
+    min-width: 320px;
+}
+
+.supersetWeightArea {
+    display: flex;
+    align-items: flex-start;
+    gap: .5rem;
+    flex: 1 1 30%;
+    min-width: 150px;
+}
+
+.supersetWeightArea>* {
+    flex: 0 0 auto;
+}
+
+@media (max-width: 600px) {
+    .inputBoxesWrapper {
+        flex-direction: column;
+    }
+
+    .setRepRestArea,
+    .supersetWeightArea {
+        width: 100%;
+        flex: 1 1 100%;
+        min-width: unset;
+    }
+
+    .supersetWeightArea {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+}

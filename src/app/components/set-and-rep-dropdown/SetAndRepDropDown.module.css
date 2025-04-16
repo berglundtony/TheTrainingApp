@@ -1,0 +1,53 @@
+.container {
+    display: flex;
+    justify-content: flex-start;
+    flex: 1;
+    gap: .3rem;
+    width: 100%
+}
+
+.labelSetRep {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: flex-start;
+    gap: 0.1rem;
+}
+
+.labelText {
+    padding: 0.4rem 0 0 .5rem;
+    font-weight: 600;
+    font-size: .8rem;
+}
+
+.selectSetRep {
+    background-color: var(--bgColDropDown);
+    border-radius: 5px;
+    width: 100%;
+    height: 30px;
+    border-radius: 8px;
+    font-size: .8rem;
+    text-align: center;
+    padding: 0 0.5rem;
+    border: 1px solid -internal-auto-base(light-dark(#767676, #858585), currentColor);
+}
+
+.selectSetRepOption {
+    text-align: left;
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 1rem 0;
+    }
+
+    .labelSetRep {
+        width: 100%;
+    }
+
+    .selectSetRep {
+        width: 100%;
+    }
+}
