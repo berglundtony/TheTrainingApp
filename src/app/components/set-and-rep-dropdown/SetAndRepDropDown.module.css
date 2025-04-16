@@ -1,10 +1,9 @@
 .container {
     display: flex;
-    /* justify-content: flex-start; */
+    justify-content: flex-start;
     flex: 1;
-    gap: 1rem;
-    padding: 1.5rem;
-    width: 100%;
+    gap: .3rem;
+    width: 100%
 }
 
 .labelSetRep {
@@ -16,7 +15,7 @@
 }
 
 .labelText {
-    padding-left: 0.6rem;
+    padding: 0.4rem 0 0 .5rem;
     font-weight: 600;
     font-size: .8rem;
 }
@@ -26,13 +25,11 @@
     border-radius: 5px;
     width: 100%;
     height: 30px;
-    margin-right: 0.4rem;
     border-radius: 8px;
-    font-size: medium;
+    font-size: .8rem;
     text-align: center;
     padding: 0 0.5rem;
     border: 1px solid -internal-auto-base(light-dark(#767676, #858585), currentColor);
-    width: 100%;
 }
 
 .selectSetRepOption {

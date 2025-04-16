@@ -31,7 +31,6 @@ export default async function CreateWorkout({ searchParams }: PageProps) {
   console.log("Loading exercises for body part:", filterBy);
   let filteredExercises: ExerciseDropDown[] = [];
   if (filterBy !== "none") {
-    // Filtrera baserat på body part
 
     filteredExercises = filterBy !== "none" && typeof filterBy === "string"
       ? (await fetchExerciseByBodyPart(filterBy)).map(exercise => ({
@@ -50,6 +49,7 @@ export default async function CreateWorkout({ searchParams }: PageProps) {
 
   return (
     <main className={styles.main}>
+      <section className={styles.formSection}>
       <h1 className={styles.title}>Create Your Workout</h1>
         <WorkoutFormWrapper
           allExercises={allExercises}
@@ -57,6 +57,10 @@ export default async function CreateWorkout({ searchParams }: PageProps) {
           selected={exerciseId}
         />
         <ShowExerciseResultById exercise={selectedExercise || undefined} />
+      </section>
+      <section className={styles.trainingplan}>
+      </section>
+      
     </main>
   )
 }

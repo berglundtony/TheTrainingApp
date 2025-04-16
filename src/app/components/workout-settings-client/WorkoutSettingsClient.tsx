@@ -1,59 +1,57 @@
-"use client"
+"use client";
 
-import { useState } from "react";
 import SupersetPending from "../superset-pending/SupersetPending";
 import WeightForm from "../weight-form/WeightForm";
 import SetAndRepDropDown from "../set-and-rep-dropdown/SetAndRepDropDown";
-import styles from "./WorkoutSettingsClient.module.css"
+import styles from "./WorkoutSettingsClient.module.css";
 
-// import { saveSelection } from "@/lib/actions";
 
-export default function CreateWorkoutClient({
+export default function WorkoutSettingsClient({
     values,
-    onChange
+    onChange,
 }: {
     values: {
-        weight: number,
-        set: number,
-        rep: number,
-        rest: number,
-        },
-        onChange: (val: typeof values) => void
+        superset: boolean; 
+        weight: number;
+        set: number;
+        rep: number;
+        rest: number;
+    };
+    onChange: (val: typeof values) => void;
     }) {
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
+
+
+    const handleFieldChange = (field: keyof typeof values, value: number | string) => {
         onChange({
             ...values,
-            [name]: value
+            [field]: Number(value),
         });
     };
-    const [selectedSet, setSelectedSet] = useState<string>("none");
-    const [selectedRep, setSelectedRep] = useState<string>("none");
-    const [selectedRest, setSelectedRest] = useState<string>("none");
 
     return (
         <div className={styles.inputBoxesWrapper}>
-            <SupersetPending />
-            <WeightForm />
+            <section className={styles.supersetWeightArea}>
+            <SupersetPending
+                superset={values.superset}
+                onChange={(val) => onChange({ ...values, superset: val })} 
+            />
+            <WeightForm
+                weight={values.weight}
+                onChange={(value) => handleFieldChange("weight", value)}
+                />
+            </section>
+            <section className={styles.setRepRestArea}>
             <SetAndRepDropDown
-                selectedSet={selectedSet}
-                selectedRep={selectedRep}
-                selectedRest={selectedRest}
-                onChangeSet={(val: string) => {
-                    setSelectedSet(val);
-                    handleChange({ target: { name: "set", value: val } } as React.ChangeEvent<HTMLInputElement>);
-                }}
-                onChangeRep={(val: string) => {
-                    setSelectedRep(val);
-                    handleChange({ target: { name: "rep", value: val } } as React.ChangeEvent<HTMLInputElement>)
-                }} 
-                onChangeRest={(val: string) => {
-                    setSelectedRest(val);
-                    handleChange({ target: { name: "rest", value: val } } as React.ChangeEvent<HTMLInputElement>)
-                }} />
+                selectedSet={values.set}
+                selectedRep={values.rep}
+                selectedRest={values.rest}
+                onChangeSet={(val) => handleFieldChange("set", val)}
+                onChangeRep={(val) => handleFieldChange("rep", val)}
+                onChangeRest={(val) => handleFieldChange("rest", val)}
+                />
+            </section>
         </div>
-    
-    )
+    );
 }
 
 

@@ -87,7 +87,7 @@ export default function BodyPartExerciseClient({
             >
                 <option key="-1" value="none">- - - Choose body part - - -</option>
                 {bodyParts.map((b, index) => (
-                    <option key={index} value={b}>
+                    <option key={index} value={b} className={styles.bodyPartOption}>
                         {b.charAt(0).toUpperCase() + b.slice(1)}
                     </option>
                 ))}
@@ -105,7 +105,7 @@ export default function BodyPartExerciseClient({
                     >
                         <option key="-1" value="none">- - - Choose exercise - - -</option>
                         {filteredExercises.map((b) => (
-                            <option key={b.exerciseId} value={b.exerciseId}>
+                            <option key={b.exerciseId} value={b.exerciseId} className={styles.exerciseOption }>
                                 {b.name.charAt(0).toUpperCase() + b.name.slice(1)}
                             </option>
                         ))}

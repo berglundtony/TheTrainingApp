@@ -1,0 +1,37 @@
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttonWrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 1.5rem;
+    width: 100%;
+    height: auto;
+}
+.submitButton {
+    background-color: rgb(76, 93, 125);
+    color: var(--fontColor);
+    padding: .8rem 1.3rem;
+    border-radius: 12px;
+    width:auto;
+    height: 2.8rem;
+    margin-top: auto;
+}
+.submitButton:hover {
+    background-color: rgb(106, 118, 146);
+}
+.isSaved{
+    color:rgb(39, 18, 70);
+    font-size: 1.2rem;
+    padding: 1.5rem;
+}
+
+.bodybuilder_image{
+    width:20%;
+    height: auto;
+    margin-left: 1.5rem;
+}
+

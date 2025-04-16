@@ -1,10 +1,24 @@
-import styles from './WeightForm.module.css'
-export default function WeightForm() {
+import styles from "./WeightForm.module.css"
+
+type Props = {
+    weight: number;
+    onChange: (value: number) => void;
+};
+
+export default function WeightForm({ weight, onChange }: Props) {
     return (
         <div className={styles.container}>
-            <label className={styles.label}>Weight:
-                <input className={styles.weightInput} name='weight' />
-            </label><span className={styles.kilo}>kg</span>
+            <label htmlFor="weight" className={styles.label}>Weight:
+                <input
+                    id="weight"
+                    type="number"
+                    value={weight}
+                    onChange={(e) => onChange(Number(e.target.value))}
+                    min={0}
+                    step={1}
+                    className={styles.weightInput}
+                /></label>
+            <span className={styles.kilo}>kg</span>
         </div>
-    )
+    );
 }

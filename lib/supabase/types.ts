@@ -8,5 +8,6 @@ export type Workout = {
     set: number;
     rep: number;
     rest: number;
+    superset?: boolean;
     created_at?: string;
 };

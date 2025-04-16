@@ -1,38 +1,48 @@
 .inputBoxesWrapper {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     gap: 1rem;
     margin-top: 0.3rem;
     padding: 1.5rem;
+    width: 100%;
 }
 
-
-.inputBoxesWrapper> :nth-child(1) {
-    flex: 0 0 12%;
+.setRepRestArea {
+    display: flex;
+    gap: 1rem;
+    flex: 1 1 58%;
+    min-width: 320px;
 }
 
-.inputBoxesWrapper> :nth-child(2) {
-    flex: 0 0 10%;
+.supersetWeightArea {
+    display: flex;
+    align-items: flex-start;
+    gap: .5rem;
+    flex: 1 1 30%;
+    min-width: 150px;
 }
 
-.inputBoxesWrapper> :nth-child(3),
-.inputBoxesWrapper> :nth-child(4),
-.inputBoxesWrapper> :nth-child(5) {
-    flex: 0 0 72%;
+.supersetWeightArea>* {
+    flex: 0 0 auto;
 }
 
-@media (max-width: 768px) {
-    .inputBoxesWrapper> :nth-child(1) {
-        flex: 0 0 40%;
+@media (max-width: 600px) {
+    .inputBoxesWrapper {
+        flex-direction: column;
     }
 
-    .inputBoxesWrapper> :nth-child(2) {
-        flex: 0 0 40%;
+    .setRepRestArea,
+    .supersetWeightArea {
+        width: 100%;
+        flex: 1 1 100%;
+        min-width: unset;
     }
 
-    .inputBoxesWrapper> :nth-child(3),
-    .inputBoxesWrapper> :nth-child(4),
-    .inputBoxesWrapper> :nth-child(5) {
-        flex: 0 0 100%;
+    .supersetWeightArea {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
     }
 }
