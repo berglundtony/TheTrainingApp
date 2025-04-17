@@ -3,13 +3,13 @@ import { fetchExerciseByBodyPart, fetchExerciseById, fetchExerciseForDropDown } 
 import { Exercise, ExerciseDropDown } from '@/lib/interfaces';
 import ShowExerciseResultById from './components/show-exercise-result-by-id/ShowExerciseResultById';
 import WorkoutFormWrapper from './components/workout-form-wrapper/WorkoutFormWrapper';
-
+import ShowTheTrainingProgram from './components/show-the-training-program/ShowTheTrainingProgram';
 
 
 type PageProps = {
-    searchParams?: {
-      [key: string]: string | string[] | undefined;
-    };
+  searchParams?: {
+    [key: string]: string | string[] | undefined;
+  };
 };
 
 export default async function CreateWorkout({ searchParams }: PageProps) {
@@ -19,7 +19,6 @@ export default async function CreateWorkout({ searchParams }: PageProps) {
   const exerciseParam = searchParams?.exercise ?? undefined;
   console.log("filterBy:", filterBy);
   const exerciseId = typeof exerciseParam === 'string' ? exerciseParam : 'none';
-
 
   let allExercises: ExerciseDropDown[] = [];
   allExercises = (await fetchExerciseForDropDown()).map(exercise => ({
@@ -48,20 +47,29 @@ export default async function CreateWorkout({ searchParams }: PageProps) {
   }
 
   return (
-    <main className={styles.main}>
-      <section className={styles.formSection}>
-      <h1 className={styles.title}>Create Your Workout</h1>
-        <WorkoutFormWrapper
-          allExercises={allExercises}
-          filteredExercises={filteredExercises}
-          selected={exerciseId}
-        />
-        <ShowExerciseResultById exercise={selectedExercise || undefined} />
-      </section>
-      <section className={styles.trainingplan}>
-      </section>
-      
-    </main>
+    <>
+      <header className={styles.headers}>
+        <div className={styles.titleWrapper}>
+          <h1 className={styles.title}>CREATE YOUR WORKOUT</h1>
+        </div>
+        <div className={styles.slideheaderWrapper}>
+          <ShowTheTrainingProgram />
+        </div>
+      </header>
+      <main className={styles.main}>
+        <section className={styles.formSection}>
+          <WorkoutFormWrapper
+            allExercises={allExercises}
+            filteredExercises={filteredExercises}
+            selected={exerciseId}
+          />
+          <ShowExerciseResultById exercise={selectedExercise || undefined} />
+        </section>
+        <section className={styles.trainingplan}>
+
+        </section>
+      </main>
+    </>
   )
 }
 

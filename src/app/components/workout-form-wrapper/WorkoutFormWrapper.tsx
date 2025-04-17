@@ -110,7 +110,6 @@ export default function WorkoutFormWrapper({
                     alt={'bodybuilder image'}
                     width={100}
                     height={100}
-                  
                 />
                 <button type='submit' className={styles.submitButton}>
                     Save Exercise
