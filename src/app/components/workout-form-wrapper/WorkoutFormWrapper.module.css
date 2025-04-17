@@ -1,27 +1,25 @@
-.form {
-    display: flex;
-    flex-direction: column;
-}
-
 .buttonWrapper{
     display: flex;
     justify-content: space-between;
     align-items: stretch;
-    padding: 1.5rem;
-    width: 100%;
+    padding-top: .8rem;
+    padding: 1rem 2rem;
     height: auto;
 }
 .submitButton {
-    background-color: rgb(76, 93, 125);
-    color: var(--fontColor);
-    padding: .8rem 1.3rem;
+    background-color: var(--buttonBgColor); 
+    color: var(--fontButtonColor);
+    font-size: 1rem;
+    padding: .75rem 1.3rem;
     border-radius: 12px;
     width:auto;
     height: 2.8rem;
     margin-top: auto;
+    margin-right: clamp(0.1rem,4vw,2.3rem);
 }
 .submitButton:hover {
-    background-color: rgb(106, 118, 146);
+    background-color: var(--buttonBgColorHover);
+    color: var(--fontButtonColorHover)
 }
 .isSaved{
     color:rgb(39, 18, 70);
@@ -30,7 +28,7 @@
 }
 
 .bodybuilder_image{
-    width:20%;
+    width:22%;
     height: auto;
     margin-left: 1.5rem;
 }

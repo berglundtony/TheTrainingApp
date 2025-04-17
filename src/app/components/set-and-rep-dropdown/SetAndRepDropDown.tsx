@@ -49,7 +49,7 @@ export default function SetAndRepDropDown({
             <label htmlFor="set" className={styles.labelSetRep}>
             <span className={styles.labelText}>Set:</span>
                 <select value={selectedSet || "none"} onChange={(e) => { const value = e.target.value; onChangeSet(value === "none" ? 0 : Number(value)); }} id='set' name='set' className={styles.selectSetRep}>
-                <option value="none">-Select set-</option>
+                <option value="none">- - - Select set - - -</option>
                 {set.map((s) => (
                     <option key={s.id} value={s.amount} className={styles.selectSetRepOption}>
                         {s.amount}
@@ -60,7 +60,7 @@ export default function SetAndRepDropDown({
             <label htmlFor="rep" className={styles.labelSetRep}>
             <span className={styles.labelText}>Rep:</span>
                 <select value={selectedRep || "none"} onChange={(e) => { const value = e.target.value; onChangeRep(value === "none" ? 0 : Number(value)); }} id='rep' name='rep' className={styles.selectSetRep}>
-                <option value="none">-repetions-</option>
+                <option value="none">- - - repetions - - -</option>
                 {repetitions.map((r) => (
                     <option key={r.id} value={r.amount} 
                          className={styles.selectSetRepOption}>
@@ -73,7 +73,7 @@ export default function SetAndRepDropDown({
             <label htmlFor="rest" className={styles.labelSetRep}>
                 <span className={styles.labelText}>Rest:</span>
                 <select value={selectedRest || "none"} onChange={(e) => { const value = e.target.value; onChangeRest(value === "none" ? 0 : Number(value)); }} id='rest' name='rest' className={styles.selectSetRep}>
-                    <option value="none">-resttime-</option>
+                    <option value="none">- - - resttime - - -</option>
                     {rest.map((r) => (
                         <option key={r.id} value={r.amount} className={styles.selectSetRepOption}>
                             {r.amount}
