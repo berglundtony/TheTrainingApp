@@ -5,9 +5,8 @@
     margin: 0 auto;
     overflow: hidden;
     border-radius: 0.5rem;
-    z-index: 0;
-    opacity: 1;
     border: 3px solid var(--borderColor);
+    z-index: 0;
 }
 
 .slide {
@@ -19,47 +18,80 @@
     background-size: cover;
     background-position: center;
     opacity: 0;
-    animation: fade 24s infinite;
-    transition: opacity 2s ease-in-out;
-    mix-blend-mode: soft-light;
+    z-index: 0;
+    /* animation-fill-mode: forwards; */
+    animation: fadeZoom 54s infinite;
+    animation-fill-mode: both;
+    transform-origin: center;
+    /* will-change: opacity, transform; */
 }
 
 .slide1 {
-    background-image: url('/skivstang.jpg');
+    background-image: url('/shoulders.jpg');
     animation-delay: 0s;
 }
 
 .slide2 {
-    background-image: url('/hantel.jpg');
+    background-image: url('/fitnessclub.jpg');
     animation-delay: 6s;
 }
 
 .slide3 {
-    background-image: url('/images.jpeg');
+    background-image: url('/draginglines.jpg');
     animation-delay: 12s;
 }
+
 .slide4 {
-    background-image: url('/hantel2.jpg');
+    background-image: url('/pullups.jpg');
     animation-delay: 18s;
 }
 
-@keyframes fade {
+.slide5 {
+    background-image: url('/hantel2.jpg');
+    animation-delay: 24s;
+}
 
-    0%,
+.slide6 {
+    background-image: url('/concentratecurl.jpg');
+    animation-delay: 30s;
+}
+
+.slide7 {
+    background-image: url('/skivstang.jpg');
+    animation-delay: 36s;
+}
+
+.slide8 {
+    background-image: url('/hantel.jpg');
+    animation-delay: 42s;
+}
+
+.slide9 {
+    background-image: url('/barbell.jpg');
+    animation-delay: 48s;
+}
+
+
+@keyframes fadeZoom {
+    0% {
+        opacity: 0;
+        transform: scale(1);
+    }
+
+    5% {
+        opacity: 1;
+        transform: scale(1.03);
+    }
+
+    85% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+
     100% {
         opacity: 0;
-    }
-
-    10%,
-    30% {
-        opacity: 1;
-    }
-
-    60% {
-        opacity: 0;
-    }
-
-    80% {
-        opacity: 0;
+        transform: scale(1.1);
     }
 }
+
+

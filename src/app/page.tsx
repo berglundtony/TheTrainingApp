@@ -1,16 +1,13 @@
 import styles from './page.module.css'
 import { fetchExerciseByBodyPart, fetchExerciseById, fetchExerciseForDropDown } from './actions';
-import { Exercise, ExerciseDropDown } from '@/lib/interfaces';
+import { Exercise, ExerciseDropDown, PageProps } from '@/lib/interfaces';
 import ShowExerciseResultById from './components/show-exercise-result-by-id/ShowExerciseResultById';
 import WorkoutFormWrapper from './components/workout-form-wrapper/WorkoutFormWrapper';
 import ShowTheTrainingProgram from './components/show-the-training-program/ShowTheTrainingProgram';
+import Slideshow from './components/slide-show/Slideshow';
 
 
-type PageProps = {
-  searchParams?: {
-    [key: string]: string | string[] | undefined;
-  };
-};
+
 
 export default async function CreateWorkout({ searchParams }: PageProps) {
 
@@ -53,6 +50,20 @@ export default async function CreateWorkout({ searchParams }: PageProps) {
           <h1 className={styles.title}>CREATE YOUR WORKOUT</h1>
         </div>
         <div className={styles.slideheaderWrapper}>
+          <Slideshow
+            images={[
+              "/hantel.jpg",
+              "/draginglines.jpg",
+              "/fitnessclub.jpg",
+              "/barbell.jpg",
+              "/concentratecurl.jpg",
+              "/pullups.jpg",
+              "/hantel2.jpg",
+              "/skivstang.jpg",
+              "/shoulders.jpg",
+            ]}
+            duration={54} // total tid i sekunder
+          />;
           <ShowTheTrainingProgram />
         </div>
       </header>

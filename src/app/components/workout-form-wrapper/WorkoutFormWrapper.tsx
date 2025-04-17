@@ -76,7 +76,7 @@ export default function WorkoutFormWrapper({
         setIsSaved(false);
     };
     const handleFormChange = (newValues: typeof formValues) => {
-        setFormValues(newValues); // Uppdatera värdena i state, men inte skicka direkt
+        setFormValues(newValues); 
     };
 
     return (
@@ -100,7 +100,7 @@ export default function WorkoutFormWrapper({
             />
             {isSaved && (
                 <p className={styles.isSaved}>
-                    ✅ Passet har sparats!
+                    ☑ Passet har sparats!
                 </p>
             )}
             <div className={styles.buttonWrapper}>

@@ -7,11 +7,11 @@ export default function ShowTheTrainingProgram() {
             <div className={`${styles.slide} ${styles.slide2}`}></div>
             <div className={`${styles.slide} ${styles.slide3}`}></div>
             <div className={`${styles.slide} ${styles.slide4}`}></div>
-
-            {/* <div className={styles.overlayContent}>
-                <h2>Your training plan</h2>
-                <p>Put anything here: text, charts, forms...</p>
-            </div> */}
+            <div className={`${styles.slide} ${styles.slide5}`}></div>
+            <div className={`${styles.slide} ${styles.slide6}`}></div>
+            <div className={`${styles.slide} ${styles.slide7}`}></div>
+            <div className={`${styles.slide} ${styles.slide8}`}></div>
+            <div className={`${styles.slide} ${styles.slide9}`}></div>
         </div>
     )
 }

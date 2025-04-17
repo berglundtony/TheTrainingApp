@@ -41,7 +41,7 @@ export default function BodyPartExerciseClient({
             setSelectedExercise(firstExercise);
             onChangeExercise(firstExercise);
 
-            // Uppdatera URL
+            // Uppdaterar URL
             const newParams = new URLSearchParams(searchParams.toString());
             newParams.set("exercise", firstExercise);
             router.replace(`${pathname}?${newParams.toString()}`);
@@ -58,7 +58,8 @@ export default function BodyPartExerciseClient({
         } else {
             newParams.set("filterBy", value.toLowerCase());
         }
-        newParams.delete("exercise"); // rensa val när man ändrar bodypart
+        // rensar val när man ändrar bodypart
+        newParams.delete("exercise");
         router.replace(`${pathname}?${newParams.toString()}`);
     };
 
@@ -105,7 +106,7 @@ export default function BodyPartExerciseClient({
                     >
                         <option key="-1" value="none">- - - Choose exercise - - -</option>
                         {filteredExercises.map((b) => (
-                            <option key={b.exerciseId} value={b.exerciseId} className={styles.exerciseOption }>
+                            <option key={b.exerciseId} value={b.exerciseId} className={styles.exerciseOption}>
                                 {b.name.charAt(0).toUpperCase() + b.name.slice(1)}
                             </option>
                         ))}
@@ -116,13 +117,13 @@ export default function BodyPartExerciseClient({
     );
 }
 
-export function useBodyParts(exercises: ExerciseDropDown[]): string[] {
+function useBodyParts(exercises: ExerciseDropDown[]): string[] {
     return useMemo(() => {
         const unique = Array.from(
             new Set(
-                exercises.flatMap((ex) =>
-                    ex.bodyParts?.map((p) => p.toLowerCase().trim()) ?? []
-                )
+                exercises
+                    .filter((ex) => ex.bodyParts?.length > 0)  // Se till att det finns body parts
+                    .flatMap((ex) => ex.bodyParts?.map((p) => p.toLowerCase().trim()) ?? [])
             )
         );
         return unique.sort((a, b) => a.localeCompare(b));
