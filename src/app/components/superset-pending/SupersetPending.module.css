@@ -26,24 +26,24 @@
 }
 
 .switch {
-    width: 36px;
-    height: 18px;
+    width: 45px;
+    height: 22px;
     border-radius: 9999px;
     position: relative;
     border: 2px solid transparent;
     outline: 2px solid white;
-    background-color: var(--bgColDropDown);
+    background-color: var(--boxColor);
     transition: background-color 0.3s ease;
     cursor: pointer;  
 }
 
 .switchOn {
-    background-color: var(--bgColDropDown);
+    background-color: var(--boxColor);
     /* grön bakgrund */
 }
 
 .switchOff {
-    background-color: var(--bgColDropDown);
+    background-color: var(--boxColor);
     /* rosa bakgrund */
 }
 
@@ -53,18 +53,18 @@
     border-radius: 50%;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     position: absolute;
-    top: -2px;
-    left: 2px;
+    top: 0px;
+    left: 1px;
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .thumbOn {
-    background-color: black;
+    background-color: var(--borderColor);
     /* grön prick */
-    transform: translateX(28px);
+    transform: translateX(20px);
 }
 
 .thumbOff {
-    background-color: #383737;
+    background-color: var(--borderColor);
     transform: translateX(0);
 }

@@ -3,7 +3,6 @@
     justify-content: flex-start;
     flex: 1;
     gap: .3rem;
-    width: 100%
 }
 
 .labelSetRep {
@@ -17,7 +16,7 @@
 .labelText {
     padding: 0.4rem 0 0 .5rem;
     font-weight: 600;
-    font-size: .8rem;
+    font-size: .9rem;
 }
 
 .selectSetRep {
@@ -26,7 +25,8 @@
     width: 100%;
     height: 30px;
     border-radius: 8px;
-    font-size: .8rem;
+    color: var(--fontColorDropDown);
+    font-size: 1rem;
     text-align: center;
     padding: 0 0.5rem;
     border: 1px solid -internal-auto-base(light-dark(#767676, #858585), currentColor);

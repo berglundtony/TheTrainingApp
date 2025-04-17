@@ -1,8 +1,19 @@
 :root {
-  --background: #859BB4;
+  /* --background: #859BB4;
+  --background: #eeb65b; */
+  --background: #df9f40;
   --foreground: #171717;
-  --bgColDropDown: #cccccc;
-  --fontColor: #ffffff;
+  --bgColDropDown: rgb(78, 97, 143);
+  --fontColor: #333333;
+  --fontButtonColor: #e5e5e5;
+  --fontButtonColorHover: #000000;
+  --buttonBgColor:#252547;
+  --buttonBgColorHover:rgb(205, 87, 2);
+  --instructionBgColor: #eaeaea;
+  --fontColorDropDown: #e5e5e5;
+  --boxColor: #252547;
+  --boxHeaderColor: rgb(164, 164, 164);
+  --borderColor: rgb(205, 87, 2);
   --fontSizeText: 1.2rem;
 }
 
@@ -17,6 +28,8 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 body {
