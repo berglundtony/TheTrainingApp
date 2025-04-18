@@ -1,3 +1,26 @@
+.titleWrapper {
+    grid-area: create;
+    position: relative;
+    display: grid;
+    align-items: center;
+    text-align: center;
+    grid-template-rows: auto auto;
+    background-color: rgb(37, 37, 71);
+    width: 95%;
+    max-width: 100%;
+    height: auto;
+    padding: 4rem;
+    border-radius: .5rem;
+    margin: auto auto;
+    border: 3px solid var(--borderColor);
+}
+
+.title {
+    color: rgb(216, 216, 216);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+
 .buttonWrapper{
     display: flex;
     justify-content: space-between;

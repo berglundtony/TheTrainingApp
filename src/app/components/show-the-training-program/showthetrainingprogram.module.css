@@ -1,97 +1,56 @@
-.backgroundSlideshow {
+.container {
+    padding: 2rem;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+.workoutWrapper {
+    grid-area: workouts;
     position: relative;
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    overflow: hidden;
-    border-radius: 0.5rem;
+    display: grid;
+    align-items: center;
+    text-align: center;
+    background-color: rgb(37, 37, 71);
+    width: 95%;
+    max-width: 100%;
+    height: auto;
+    padding: 4rem;
+    border-radius: .5rem;
+    margin: 1rem auto;
     border: 3px solid var(--borderColor);
-    z-index: 0;
 }
 
-.slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    z-index: 0;
-    /* animation-fill-mode: forwards; */
-    animation: fadeZoom 54s infinite;
-    animation-fill-mode: both;
-    transform-origin: center;
-    /* will-change: opacity, transform; */
+.title {
+    color: rgb(216, 216, 216);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
 }
 
-.slide1 {
-    background-image: url('/shoulders.jpg');
-    animation-delay: 0s;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
 }
 
-.slide2 {
-    background-image: url('/fitnessclub.jpg');
-    animation-delay: 6s;
+.card {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease-in-out;
 }
 
-.slide3 {
-    background-image: url('/draginglines.jpg');
-    animation-delay: 12s;
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
-.slide4 {
-    background-image: url('/pullups.jpg');
-    animation-delay: 18s;
-}
-
-.slide5 {
-    background-image: url('/hantel2.jpg');
-    animation-delay: 24s;
-}
-
-.slide6 {
-    background-image: url('/concentratecurl.jpg');
-    animation-delay: 30s;
-}
-
-.slide7 {
-    background-image: url('/skivstang.jpg');
-    animation-delay: 36s;
-}
-
-.slide8 {
-    background-image: url('/hantel.jpg');
-    animation-delay: 42s;
-}
-
-.slide9 {
-    background-image: url('/barbell.jpg');
-    animation-delay: 48s;
-}
-
-
-@keyframes fadeZoom {
-    0% {
-        opacity: 0;
-        transform: scale(1);
-    }
-
-    5% {
-        opacity: 1;
-        transform: scale(1.03);
-    }
-
-    85% {
-        opacity: 1;
-        transform: scale(1.08);
-    }
-
-    100% {
-        opacity: 0;
-        transform: scale(1.1);
-    }
+.card h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
 }
 
 

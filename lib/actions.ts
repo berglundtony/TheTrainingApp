@@ -1,32 +1,17 @@
 "use server";
 
-// import { createServerClient } from "@/lib/supabase/server";
+import { supabase } from "@/lib/supabase/supaBaseClient";
+// import { Exercise } from "./interfaces";
 
 
-// export async function saveSelection(week: string, day: string): Promise<boolean> {
-    // const supabase = createServerClient();
+export async function fetchWorkouts() {
+    const { data, error } = await supabase.from('workouts').select('*');
 
-    // Hämta användaren som är inloggad
+    if (error) {
+        console.error('Fel vid hämtning:', error.message);
+        return [];
+    }
 
+    return data;
 
-    // const { data: { user }, error: userError } = await supabase.auth.getUser();
-    // if (!user || userError) {
-    //     console.error("User not authenticated or error", userError);
-    //     return false;
-    // }
-
-    // // Spara till t.ex. en tabell "workout_selection"
-    // const { error } = await supabase.from('workout_selection').insert({
-    //     user_id: user.id,
-    //     week,
-    //     day,
-    //     created_at: new Date().toISOString()
-    // });
-
-    // if (error) {
-    //     console.error("Failed to insert selection:", error);
-    //     return false;
-    // }
-
-    return true;
 }

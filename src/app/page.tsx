@@ -43,28 +43,23 @@ export default async function CreateWorkout({ searchParams }: PageProps) {
     selectedExercise = res ?? null;
   }
 
+  const images = [
+    "/shoulders.jpg",
+    "/draginglines.jpg",
+    "/fitnessclub.jpg",
+    "/pullups.jpg",
+    "/hantel.jpg",
+    "/barbell.jpg",
+    "/concentratecurl.jpg",
+    "/skivstang.jpg",
+    "/hantel2.jpg",
+  ];
+
   return (
     <>
       <header className={styles.headers}>
-        <div className={styles.titleWrapper}>
-          <h1 className={styles.title}>CREATE YOUR WORKOUT</h1>
-        </div>
         <div className={styles.slideheaderWrapper}>
-          <Slideshow
-            images={[
-              "/hantel.jpg",
-              "/draginglines.jpg",
-              "/fitnessclub.jpg",
-              "/barbell.jpg",
-              "/concentratecurl.jpg",
-              "/pullups.jpg",
-              "/hantel2.jpg",
-              "/skivstang.jpg",
-              "/shoulders.jpg",
-            ]}
-            duration={54} // total tid i sekunder
-          />;
-          <ShowTheTrainingProgram />
+          <Slideshow images={images} duration={60} />
         </div>
       </header>
       <main className={styles.main}>
@@ -77,7 +72,7 @@ export default async function CreateWorkout({ searchParams }: PageProps) {
           <ShowExerciseResultById exercise={selectedExercise || undefined} />
         </section>
         <section className={styles.trainingplan}>
-
+          <ShowTheTrainingProgram />
         </section>
       </main>
     </>
