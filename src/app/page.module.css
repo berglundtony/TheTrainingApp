@@ -7,7 +7,6 @@
   position: relative;
   width: 100%;
   height: 50vh;
-  border: 3px solid var(--borderColor);
 }
 
 .slideheaderWrapper {
@@ -43,8 +42,6 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-content: center;
-  align-items: center;
-  gap: 2rem;
   font-family: Arial, sans-serif;
   color: var(--fontColor);
   width: 100%;
@@ -67,11 +64,12 @@
   .workoutWrapper {
     width: 100%;
   }
+
   /* Eller en specifik höjd beroende på ditt behov */
 
-.slideheaderWrapper {
-  height: 40vh;
-}
+  .slideheaderWrapper {
+    height: 40vh;
+  }
 }
 
 /* wide screen */

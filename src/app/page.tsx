@@ -1,3 +1,5 @@
+"use server"
+
 import styles from './page.module.css'
 import { fetchExerciseByBodyPart, fetchExerciseById, fetchExerciseForDropDown } from './actions';
 import { Exercise, ExerciseDropDown, PageProps } from '@/lib/interfaces';
@@ -7,10 +9,7 @@ import ShowTheTrainingProgram from './components/show-the-training-program/ShowT
 import Slideshow from './components/slide-show/Slideshow';
 
 
-
-
 export default async function CreateWorkout({ searchParams }: PageProps) {
-
   const rawFilterBy = searchParams?.filterBy ?? "none";
   const filterBy = decodeURIComponent(Array.isArray(rawFilterBy) ? rawFilterBy[0] : rawFilterBy);
   const exerciseParam = searchParams?.exercise ?? undefined;
