@@ -1,4 +1,5 @@
 .container {
+    display: grid;
     padding: 1rem;
 }
 
@@ -26,9 +27,51 @@
     border: 3px solid var(--borderColor);
 }
 
+.nameAndTargetWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: left;
+    text-align: left;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    background-color: rgb(37, 37, 71);
+    color: #ddd;
+    font-size: clamp(1.8rem, 4vw, 1.1rem);
+    width: 95%;
+    max-width: 100%;
+    height: auto;
+    padding: 1.45rem;
+    border-radius: .5rem;
+    margin: 1rem auto;
+}
+
+.targetMuscleWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+}
+
+.headerTargetMuscle {
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    margin: .5rem 0;
+    font-weight: 600;
+    color: var(--boxHeaderColor);
+    white-space: nowrap;
+}
+
+.targetMuscles {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--borderColor);
+    font-weight: 600;
+    white-space: nowrap;
+    list-style-type: none;
+    margin: .4rem;
+}
+
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(100%, 1fr));
     gap: 1.5rem;
 }
 
@@ -43,6 +86,8 @@
     li.exercise {
         display: flex;
         justify-content: left;
+        flex-direction: column;
+        align-items: flex-start;
         gap: 0.5rem;
         align-items: center;
         list-style: none;
