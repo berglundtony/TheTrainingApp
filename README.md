@@ -18,19 +18,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## About the project
+This is the finsh project in the course Frontendutveckling at Lexicon november 2024 -april 2025 with React, Next.js and Typescript. I have uses Supabase for storing in the database.
+This is a workout application for gym exercises. You plan your training week and what to do at the training days.
 
-## Learn More
+## What it contains
+* Dropdownlists for week and day: [WeekDayDropDown.tsx](https://raw.githubusercontent.com/berglundtony/TheTrainingApp/Create-dropdowns-for-set-and-reps/src/app/components/week-day-dropdown/WeekDayDropDown.tsx)
+* 
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
