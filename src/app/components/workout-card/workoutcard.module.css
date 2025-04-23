@@ -129,12 +129,12 @@
     }
 }
 
-.secondaryRowWrapper {
+/* .secondaryRowWrapper {
     display: flex;
     align-items: center;
     gap: .5rem;
     flex-wrap: wrap;
-}
+} */
 
 .secondaryWrapper {
     display: flex;
@@ -186,7 +186,7 @@
 .instructionWrapper {
     display: grid;
     gap: .9rem;
-    margin-top: 1rem;
+    margin: 1rem;
     background-color: var(--instructionBgColor);
     border-radius: 8px;
     border: 3px solid var(--borderColor);
@@ -212,6 +212,77 @@ h2.middletext {
     font-size: clamp(.9rem, 3vw, 1.3rem);
     color: var(--boxHeaderColor);
     margin-right: .4rem
+}
+
+.setsAndRepsWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: start;
+    gap: .2rem;
+    background-color: rgb(37, 37, 71);
+    color: #ddd;
+    font-size: clamp(1.8rem, 4vw, 1.1rem);
+    width: 95%;
+    max-width: 100%;
+    height: auto;
+    padding: .45rem;
+    border-radius: .5rem;
+    margin: 1rem auto;
+    border: 2px solid var(--borderColor);
+}
+
+.set,
+.rep,
+.settext,
+.reptext {
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: var(--borderColor);
+    font-weight: 400;
+    padding-right: .5rem;
+}
+
+.checkboxLabel > input[type="checkbox"] {             
+    width: 30px;
+    height: 30px;
+    margin: 4px;
+}
+
+.restWeightWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .2rem;
+    background-color: rgb(37, 37, 71);
+    color: #ddd;
+    font-size: clamp(1.8rem, 4vw, 1.1rem);
+    width: 95%;
+    max-width: 100%;
+    height: auto;
+    padding: .45rem;
+    border-radius: .5rem;
+    margin: 1rem auto;
+    border: 2px solid var(--borderColor);
+}
+
+.secText {
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: var(--borderColor);
+    font-weight: 400;
+    padding-right: .5rem;
+}
+
+.rest {
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: var(--borderColor);
+    font-weight: 600;
+}
+
+.weight {
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: var(--borderColor);
+    font-weight: 600;
 }
 
 .grid {
@@ -259,7 +330,31 @@ h2.middletext {
     font-size: 1.1rem;
 }
 
-.button {
+.imageWrapper {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    width: 100%;
+}
+
+.exercise_image {
+    width: 100%;
+    height: auto;
+    border-radius: .5rem;
+    border: 3px solid var(--borderColor);
+}
+
+.buttonWrapper {
+    display: flex;
+    justify-content: end;
+    flex-direction: row;
+    align-items: end;
+    gap: 1rem;
+    margin-right: 1.2rem;
+    width: 100%;
+}
+
+.deleteButton {
     background-color: #252547;
     color: white;
     padding: 0.5rem 1rem;
@@ -270,6 +365,8 @@ h2.middletext {
     transition: background-color 0.3s ease;
 }
 
-.button:hover {
-    background-color: #3b3b69;
+.deleteButton:hover {
+    background-color: var(--buttonBgColorHover);
+    color: var(--fontButtonColorHover);
+    font-weight: 600;
 }

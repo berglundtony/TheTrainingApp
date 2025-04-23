@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 const fallbackImage = '/placeholder-image.jpg';
 import { Exercise } from "@/lib/interfaces";
 
-export function UseImageUrl(exercise: Exercise | undefined): string {
+export function useImageUrl(exercise: Exercise | undefined): string {
     const [imgSrc, setImgSrc] = useState<string>(fallbackImage);
 
     useEffect(() => {
