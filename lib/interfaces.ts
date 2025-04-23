@@ -42,6 +42,12 @@ export interface Props {
     selected: string;
 }
 
+export interface PageProps {
+    searchParams?: {
+        [key: string]: string | string[] | undefined;
+    };
+};
+
 export interface TransitionOptions {
     shallow?: boolean;
     locale?: string | false;
@@ -85,4 +91,7 @@ export interface SetRepRestDropDownProps {
     onChangeRest: (val: number) => void;
 }
 
-
+export interface SlideshowProps {
+    images: string[];
+    duration?: number;
+}

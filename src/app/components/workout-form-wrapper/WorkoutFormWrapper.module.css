@@ -1,4 +1,26 @@
-.buttonWrapper{
+.titleWrapper {
+    grid-area: create;
+    position: relative;
+    display: grid;
+    align-items: center;
+    text-align: center;
+    grid-template-rows: auto auto;
+    background-color: rgb(37, 37, 71);
+    width: 95%;
+    max-width: 100%;
+    height: auto;
+    padding: 4rem;
+    border-radius: .5rem;
+    margin: 1rem auto;
+    border: 3px solid var(--borderColor);
+}
+
+.title {
+    color: rgb(216, 216, 216);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.buttonWrapper {
     display: flex;
     justify-content: space-between;
     align-items: stretch;
@@ -6,30 +28,32 @@
     padding: 1rem 2rem;
     height: auto;
 }
+
 .submitButton {
-    background-color: var(--buttonBgColor); 
+    background-color: var(--buttonBgColor);
     color: var(--fontButtonColor);
     font-size: 1rem;
     padding: .75rem 1.3rem;
     border-radius: 12px;
-    width:auto;
+    width: auto;
     height: 2.8rem;
     margin-top: auto;
-    margin-right: clamp(0.1rem,4vw,2.3rem);
+    margin-right: clamp(0.1rem, 4vw, 2.3rem);
 }
+
 .submitButton:hover {
     background-color: var(--buttonBgColorHover);
     color: var(--fontButtonColorHover)
 }
-.isSaved{
-    color:rgb(39, 18, 70);
+
+.isSaved {
+    color: rgb(39, 18, 70);
     font-size: 1.2rem;
     padding: 1.5rem;
 }
 
-.bodybuilder_image{
-    width:22%;
+.bodybuilder_image {
+    width: 22%;
     height: auto;
     margin-left: 1.5rem;
 }
-

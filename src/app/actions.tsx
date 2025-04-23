@@ -122,29 +122,28 @@ export async function fetchExerciseByBodyPart(bodyPartName: string): Promise<Exe
 
 export async function fetchExerciseById(exerciseId: string): Promise<Exercise | null> {
     if (!exerciseId || exerciseId === "none") {
-        console.warn("fetchExerciseByName: Ogiltigt namn", exerciseId);
+        console.warn("Ogiltigt exerciseId:", exerciseId);
         return null;
     }
-    const url = `${MAIN_URL}/exercises/${encodeURIComponent(exerciseId)}`;
-    console.log(url);
-    const options = {
-        method: 'GET',
-        headers: {
-            Accept: '*/*'
-        }
-    };
+
     try {
-        const response = await fetch(url, options);
-        console.log(`efter fetch${response}`)
+        const url = `${MAIN_URL}/exercises/${encodeURIComponent(exerciseId)}`;
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: { Accept: '*/*' },
+        });
+
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            console.warn(`Fel vid hämtning av ${exerciseId}: ${response.status}`);
+            return null;
         }
+
         const result: SingleExerciseResponse = await response.json();
-        console.log("resultat:", result);
-        return result.success ? result.data : {} as Exercise;
+        return result.success ? result.data : null;
+
     } catch (error) {
-        console.error(error);
+        console.error("Nätverksfel:", error);
+        return null;
     }
-    return {} as Exercise;
 }
 

@@ -1,65 +1,275 @@
-.backgroundSlideshow {
+.container {
+    display: grid;
+    padding: 1rem;
+}
+
+.exerciseWrapper {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: center;
+    background-color: rgb(37, 37, 71);
+    width: 95%;
+    max-width: 100%;
+    height: auto;
+    padding: .45rem;
+    border-radius: .5rem;
+    margin: 1rem auto;
+    border: 2px solid var(--borderColor);
+
+    h2.exerciseNumber {
+        text-align: center;
+        color: rgb(216, 216, 216);
+        font-size: clamp(1.5rem, 4vw, 2rem);
+    }
+
+    h3.headerWeekAndDay {
+        text-align: right;
+        color: var(--borderColor);
+        font-size: clamp(1rem, 4vw, 1.2rem);
+    }
+
+    .superset {
+        color: var(--borderColor);
+        font-size: clamp(1rem, 4vw, 1.5rem);
+    }
+}
+
+
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: rgb(216, 216, 216);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.workoutWrapper {
+    grid-area: workouts;
     position: relative;
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    overflow: hidden;
-    border-radius: 0.5rem;
-    z-index: 0;
-    opacity: 1;
+    display: grid;
+    align-items: center;
+    text-align: center;
+    background-color: rgb(37, 37, 71);
+    width: 95%;
+    max-width: 100%;
+    height: auto;
+    padding: 3.45rem;
+    border-radius: .5rem;
+    margin: 1rem auto;
+    border: 2px solid var(--borderColor);
+}
+
+.nameAndTargetWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: left;
+    text-align: left;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    background-color: rgb(37, 37, 71);
+    color: #ddd;
+    font-size: clamp(1.8rem, 4vw, 1.1rem);
+    width: 95%;
+    max-width: 100%;
+    height: auto;
+    padding: 1.45rem;
+    border-radius: .5rem;
+    margin: 1rem auto;
+    border: 2px solid var(--borderColor);
+}
+
+.targetMuscleWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+}
+
+.headerTargetMuscle {
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    margin: .5rem 0;
+    font-weight: 600;
+    color: var(--boxHeaderColor);
+    white-space: nowrap;
+}
+
+.targetMuscles {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--borderColor);
+    font-weight: 600;
+    white-space: nowrap;
+    list-style-type: none;
+    margin: .4rem;
+}
+
+.informationWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: .5rem;
+    background-color: rgb(37, 37, 71);
     border: 3px solid var(--borderColor);
+    padding: .8rem;
+    border-radius: 10px;
+    width: 95%;
+    max-width: 100%;
 }
 
-.slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    animation: fade 24s infinite;
-    transition: opacity 2s ease-in-out;
-    mix-blend-mode: soft-light;
+.bodypartWrapper {
+    display: flex;
+    align-Items: center;
+    gap: .5rem;
+
+    span {
+        font-size: clamp(.9rem, 3vw, 1.4rem);
+        font-weight: 600;
+        color: var(--borderColor);
+    }
 }
 
-.slide1 {
-    background-image: url('/skivstang.jpg');
-    animation-delay: 0s;
+.secondaryRowWrapper {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex-wrap: wrap;
 }
 
-.slide2 {
-    background-image: url('/hantel.jpg');
-    animation-delay: 6s;
-}
+.secondaryWrapper {
+    display: flex;
+    align-Items: start;
+    gap: .2rem;
+    flex-direction: row;
+    white-space: wrap;
 
-.slide3 {
-    background-image: url('/images.jpeg');
-    animation-delay: 12s;
-}
-.slide4 {
-    background-image: url('/hantel2.jpg');
-    animation-delay: 18s;
-}
-
-@keyframes fade {
-
-    0%,
-    100% {
-        opacity: 0;
+    ul.secondaryMuscles {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: .4rem;
     }
 
-    10%,
-    30% {
-        opacity: 1;
+    ul.secondaryMuscles li {
+        /* display: inline; */
+        margin-right: .4rem;
+        font-size: clamp(.9rem, 3vw, 1.4rem);
+        font-weight: 600;
+        color: var(--borderColor);
     }
 
-    60% {
-        opacity: 0;
+    .secondaryMuscles li::after {
+        content: ',';
     }
 
-    80% {
-        opacity: 0;
+    .secondaryMuscles li:last-child::after {
+        content: '';
     }
+}
+
+.equipmentWrapper {
+    display: flex;
+    align-Items: start;
+    flex-direction: row;
+    gap: .8rem;
+
+    ul.equipment {
+        list-style-type: none;
+        font-size: clamp(.9rem, 3vw, 1.4rem);
+        color: var(--borderColor);
+        font-weight: 600;
+    }
+}
+
+.instructionWrapper {
+    display: grid;
+    gap: .9rem;
+    margin-top: 1rem;
+    background-color: var(--instructionBgColor);
+    border-radius: 8px;
+    border: 3px solid var(--borderColor);
+    padding: .6rem;
+}
+
+ul.instructions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0 auto;
+    font-size: clamp(1.1rem, 3vw, 1.2rem);
+    list-style: none;
+    margin-left: .8rem;
+}
+
+h2.middletext {
+    margin: 0;
+    white-space: nowrap;
+
+    /* eller inline-flex, beroende på stil */
+    display: inline-flex;
+    font-size: clamp(.9rem, 3vw, 1.3rem);
+    color: var(--boxHeaderColor);
+    margin-right: .4rem
+}
+
+.grid {
+    display: grid;
+    grid-template-rows: repeat(auto-fill, minmax(100%, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease-in-out;
+    border: 3px solid var(--borderColor);
+
+    li.exercise {
+        display: flex;
+        justify-content: left;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        align-items: center;
+        list-style: none;
+        max-width: 100%;
+        overflow: hidden;
+        margin: 0.5rem 0;
+        padding: 0.5rem;
+        background-color: #f0f0f0;
+        border-radius: 4px;
+    }
+
+    li.exercise:hover {
+        background-color: #e0e0e0;
+    }
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+    font-size: 1.1rem;
+}
+
+.button {
+    background-color: #252547;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #3b3b69;
 }

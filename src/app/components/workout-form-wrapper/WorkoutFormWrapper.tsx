@@ -31,10 +31,8 @@ export default function WorkoutFormWrapper({
     });
     const [isSaved, setIsSaved] = useState(false);
 
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         const workout = {
             day: selectedDay,
             week: selectedWeek,
@@ -76,45 +74,50 @@ export default function WorkoutFormWrapper({
         setIsSaved(false);
     };
     const handleFormChange = (newValues: typeof formValues) => {
-        setFormValues(newValues); // Uppdatera värdena i state, men inte skicka direkt
+        setFormValues(newValues);
     };
 
     return (
-        <form className={styles.form} onSubmit={handleSubmit}>
-            <CreateWorkoutClient
-                selectedWeek={selectedWeek}
-                selectedDay={selectedDay}
-                setSelectedWeek={setSelectedWeek}
-                setSelectedDay={setSelectedDay}
-            />
-            <BodyPartExerciseClient
-                allExercises={allExercises}
-                filteredExercises={filteredExercises}
-                selected={selected}
-                onChangeExercise={setExerciseId}
-                setBodyPart={setBodyPart}
-            />
-            <WorkoutSettingsClient
-                values={formValues}
-                onChange={handleFormChange}
-            />
-            {isSaved && (
-                <p className={styles.isSaved}>
-                    ✅ Passet har sparats!
-                </p>
-            )}
-            <div className={styles.buttonWrapper}>
-                <Image
-                    className={styles.bodybuilder_image}
-                    src={'/bodybuilder.gif'}
-                    alt={'bodybuilder image'}
-                    width={100}
-                    height={100}
-                />
-                <button type='submit' className={styles.submitButton}>
-                    Save Exercise
-                </button>
+        <>
+            <div className={styles.titleWrapper}>
+                <h1 className={styles.title}>CREATE YOUR WORKOUT</h1>
             </div>
-        </form>
+            <form className={styles.form} onSubmit={handleSubmit}>
+                <CreateWorkoutClient
+                    selectedWeek={selectedWeek}
+                    selectedDay={selectedDay}
+                    setSelectedWeek={setSelectedWeek}
+                    setSelectedDay={setSelectedDay}
+                />
+                <BodyPartExerciseClient
+                    allExercises={allExercises}
+                    filteredExercises={filteredExercises}
+                    selected={selected}
+                    onChangeExercise={setExerciseId}
+                    setBodyPart={setBodyPart}
+                />
+                <WorkoutSettingsClient
+                    values={formValues}
+                    onChange={handleFormChange}
+                />
+                {isSaved && (
+                    <p className={styles.isSaved}>
+                        ☑ Passet har sparats!
+                    </p>
+                )}
+                <div className={styles.buttonWrapper}>
+                    <Image
+                        className={styles.bodybuilder_image}
+                        src={'/bodybuilder.gif'}
+                        alt={'bodybuilder image'}
+                        width={100}
+                        height={100}
+                    />
+                    <button type='submit' className={styles.submitButton}>
+                        Save Exercise
+                    </button>
+                </div>
+            </form>
+        </>
     );
 }

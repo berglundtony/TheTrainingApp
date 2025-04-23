@@ -1,19 +1,15 @@
+"use server"
+
 import styles from './page.module.css'
 import { fetchExerciseByBodyPart, fetchExerciseById, fetchExerciseForDropDown } from './actions';
-import { Exercise, ExerciseDropDown } from '@/lib/interfaces';
+import { Exercise, ExerciseDropDown, PageProps } from '@/lib/interfaces';
 import ShowExerciseResultById from './components/show-exercise-result-by-id/ShowExerciseResultById';
 import WorkoutFormWrapper from './components/workout-form-wrapper/WorkoutFormWrapper';
 import ShowTheTrainingProgram from './components/show-the-training-program/ShowTheTrainingProgram';
+import Slideshow from './components/slide-show/Slideshow';
 
-
-type PageProps = {
-  searchParams?: {
-    [key: string]: string | string[] | undefined;
-  };
-};
 
 export default async function CreateWorkout({ searchParams }: PageProps) {
-
   const rawFilterBy = searchParams?.filterBy ?? "none";
   const filterBy = decodeURIComponent(Array.isArray(rawFilterBy) ? rawFilterBy[0] : rawFilterBy);
   const exerciseParam = searchParams?.exercise ?? undefined;
@@ -46,14 +42,23 @@ export default async function CreateWorkout({ searchParams }: PageProps) {
     selectedExercise = res ?? null;
   }
 
+  const images = [
+    "/shoulders.jpg",
+    "/draginglines.jpg",
+    "/fitnessclub.jpg",
+    "/pullups.jpg",
+    "/hantel.jpg",
+    "/barbell.jpg",
+    "/concentratecurl.jpg",
+    "/skivstang.jpg",
+    "/hantel2.jpg",
+  ];
+
   return (
     <>
       <header className={styles.headers}>
-        <div className={styles.titleWrapper}>
-          <h1 className={styles.title}>CREATE YOUR WORKOUT</h1>
-        </div>
         <div className={styles.slideheaderWrapper}>
-          <ShowTheTrainingProgram />
+          <Slideshow images={images} duration={60} />
         </div>
       </header>
       <main className={styles.main}>
@@ -66,7 +71,7 @@ export default async function CreateWorkout({ searchParams }: PageProps) {
           <ShowExerciseResultById exercise={selectedExercise || undefined} />
         </section>
         <section className={styles.trainingplan}>
-
+          <ShowTheTrainingProgram />
         </section>
       </main>
     </>
