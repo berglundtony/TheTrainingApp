@@ -206,8 +206,6 @@ ul.instructions {
 h2.middletext {
     margin: 0;
     white-space: nowrap;
-
-    /* eller inline-flex, beroende på stil */
     display: inline-flex;
     font-size: clamp(.9rem, 3vw, 1.3rem);
     color: var(--boxHeaderColor);
@@ -216,8 +214,8 @@ h2.middletext {
 
 .setsAndRepsWrapper {
     display: flex;
-    flex-direction: column;
     justify-content: flex-start;
+    flex-direction: row;
     align-items: start;
     gap: .2rem;
     background-color: rgb(37, 37, 71);
@@ -240,6 +238,15 @@ h2.middletext {
     color: var(--borderColor);
     font-weight: 400;
     padding-right: .5rem;
+}
+
+.checkboxGrid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    align-items: center;
+    gap: 1rem;
+    margin: 0 auto;
+    padding: 0.5rem;
 }
 
 .checkboxLabel > input[type="checkbox"] {             

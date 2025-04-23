@@ -16,7 +16,6 @@ type WorkoutCardProps = {
 export default function WorkoutCard({ workout, exercise, index, onDelete }:
     WorkoutCardProps) {
     const imageUrl = useImageUrl(exercise);
-    // const [workouts, setWorkouts] = useState<Workout[]>([]); // Du behöver hantera detta utanför eller få `setWorkouts` via props
 
     const deleteTraining = async (exercise_id: string) => {
         const { error } = await supabase
@@ -95,23 +94,21 @@ export default function WorkoutCard({ workout, exercise, index, onDelete }:
                                 <h2 className={styles.middletext}>Reps:</h2>
                                 <span className={styles.rep}>{workout.rep}</span>
                             </div>
-                        <div className={styles.checkboxGrid}>
-                            {Array.from({ length: workout.set }, (_, setIndex) => (
-                                <div key={setIndex} className={styles.setRow}>
-                                    <span className={styles.settext}>Set {setIndex + 1}:</span>
-                                    {Array.from({ length: workout.rep }, (_, repIndex) => (
-                                        <label key={repIndex} className={styles.checkboxLabel}>
-                                            <input
-                                                type="checkbox"
-                                                name={`set-${setIndex}-rep-${repIndex}`}
-                                                value={`set-${setIndex}-rep-${repIndex}`}
-                                                onChange={(e) => {
-                                                    // Hantera checkbox-värdet här, t.ex. spara till state
-                                                }}
-                                            />
-                                        </label>
-                                    ))}
-                                </div>
+                            <div className={styles.checkboxGrid}>
+                                <span className={styles.settext}>Set:</span>
+                                {Array.from({ length: workout.set }, (_, setIndex) => (
+                                    <div key={setIndex} className={styles.setRow}>
+                                            <label key={setIndex} className={styles.checkboxLabel}>
+                                                <input
+                                                    type="checkbox"
+                                                    name={`set-${setIndex}`}
+                                                    value={`set-${setIndex}`}
+                                                    onChange={(e) => {
+                                                        // Hantera checkbox-värdet här, t.ex. spara till state
+                                                    }}
+                                                />
+                                            </label>
+                                    </div>
                             ))}
                         </div>
                     </div>
