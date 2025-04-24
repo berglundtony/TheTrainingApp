@@ -1,6 +1,7 @@
 .container {
     display: grid;
     padding: 1rem;
+    justify-content:stretch;
 }
 
 .exerciseWrapper {
@@ -35,8 +36,6 @@
     }
 }
 
-
-
 .title {
     font-size: 2rem;
     margin-bottom: 1rem;
@@ -46,18 +45,16 @@
 }
 
 .workoutWrapper {
-    grid-area: workouts;
     position: relative;
     display: grid;
-    align-items: center;
-    text-align: center;
+    justify-content: center;
+    gap: 1.5rem;
     background-color: rgb(37, 37, 71);
-    width: 95%;
+    width: 100%;
     max-width: 100%;
     height: auto;
     padding: 3.45rem;
     border-radius: .5rem;
-    margin: 1rem auto;
     border: 2px solid var(--borderColor);
 }
 

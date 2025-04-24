@@ -16,6 +16,7 @@ export default function WorkoutSettingsClient({
         set: number;
         rep: number;
         rest: number;
+        setvalue: number;
     };
     onChange: (val: typeof values) => void;
     }) {

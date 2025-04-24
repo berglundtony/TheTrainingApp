@@ -12,7 +12,7 @@
     width: 95%;
     max-width: 100%;
     height: auto;
-    padding: .45rem;
+    padding: clamp(.5rem, 3vw, 1rem);
     border-radius: .5rem;
     margin: 1rem auto;
     border: 2px solid var(--borderColor);
@@ -35,8 +35,6 @@
     }
 }
 
-
-
 .title {
     font-size: 2rem;
     margin-bottom: 1rem;
@@ -46,11 +44,11 @@
 }
 
 .workoutWrapper {
-    grid-area: workouts;
     position: relative;
     display: grid;
     align-items: center;
     text-align: center;
+    justify-content: center;
     background-color: rgb(37, 37, 71);
     width: 95%;
     max-width: 100%;
@@ -75,7 +73,7 @@
     width: 95%;
     max-width: 100%;
     height: auto;
-    padding: 1.45rem;
+    padding: clamp(.5rem, 3vw, 1rem);
     border-radius: .5rem;
     margin: 1rem auto;
     border: 2px solid var(--borderColor);
@@ -88,7 +86,7 @@
 }
 
 .headerTargetMuscle {
-    font-size: clamp(1rem, 3vw, 1.4rem);
+    font-size: clamp(1.2rem, 3vw, 1.4rem);
     margin: .5rem 0;
     font-weight: 600;
     color: var(--boxHeaderColor);
@@ -96,7 +94,7 @@
 }
 
 .targetMuscles {
-    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
     color: var(--borderColor);
     font-weight: 600;
     white-space: nowrap;
@@ -111,7 +109,7 @@
     gap: .5rem;
     background-color: rgb(37, 37, 71);
     border: 3px solid var(--borderColor);
-    padding: .8rem;
+    padding: clamp(.5rem, 3vw, 1rem);
     border-radius: 10px;
     width: 95%;
     max-width: 100%;
@@ -123,18 +121,12 @@
     gap: .5rem;
 
     span {
-        font-size: clamp(.9rem, 3vw, 1.4rem);
+        font-size: clamp(1.2rem, 3vw, 1.4rem);
         font-weight: 600;
         color: var(--borderColor);
     }
 }
 
-/* .secondaryRowWrapper {
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    flex-wrap: wrap;
-} */
 
 .secondaryWrapper {
     display: flex;
@@ -153,9 +145,8 @@
     }
 
     ul.secondaryMuscles li {
-        /* display: inline; */
         margin-right: .4rem;
-        font-size: clamp(.9rem, 3vw, 1.4rem);
+        font-size: clamp(1.2rem, 3vw, 1.4rem);
         font-weight: 600;
         color: var(--borderColor);
     }
@@ -177,7 +168,7 @@
 
     ul.equipment {
         list-style-type: none;
-        font-size: clamp(.9rem, 3vw, 1.4rem);
+        font-size: clamp(1.2rem, 3vw, 1.4rem);
         color: var(--borderColor);
         font-weight: 600;
     }
@@ -190,7 +181,7 @@
     background-color: var(--instructionBgColor);
     border-radius: 8px;
     border: 3px solid var(--borderColor);
-    padding: .6rem;
+    padding: clamp(.5rem, 3vw, 1rem);
 }
 
 ul.instructions {
@@ -207,14 +198,14 @@ h2.middletext {
     margin: 0;
     white-space: nowrap;
     display: inline-flex;
-    font-size: clamp(.9rem, 3vw, 1.3rem);
+    font-size: clamp(1.2rem, 3vw, 1.3rem);
     color: var(--boxHeaderColor);
     margin-right: .4rem
 }
 
 .setsAndRepsWrapper {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     flex-direction: row;
     align-items: start;
     gap: .2rem;
@@ -224,35 +215,67 @@ h2.middletext {
     width: 95%;
     max-width: 100%;
     height: auto;
-    padding: .45rem;
+    padding: clamp(.5rem, 3vw, 1rem);
+    margin: 1rem;
     border-radius: .5rem;
-    margin: 1rem auto;
     border: 2px solid var(--borderColor);
 }
 
+.weight,
 .set,
 .rep,
 .settext,
 .reptext {
-    font-size: clamp(1rem, 3vw, 1.4rem);
+    font-size: clamp(1.2rem, 3vw, 1.4rem);
+    color: var(--borderColor);
+    font-weight: 600;
+    padding-right: .5rem;
+}
+.secText {
+    font-size: clamp(1.2rem, 3vw, 1.4rem);
     color: var(--borderColor);
     font-weight: 400;
-    padding-right: .5rem;
+    padding: 0.2rem .5rem .2rem 0;
+}
+.rest{
+    font-size: clamp(1.2rem, 3vw, 1.4rem);
+    color: var(--borderColor);
+    font-weight: 600;
 }
 
 .checkboxGrid {
     display: grid;
-    grid-template-columns: repeat(9, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    justify-content: end;
     align-items: center;
-    gap: 1rem;
-    margin: 0 auto;
-    padding: 0.5rem;
+    gap: .2rem;
 }
 
 .checkboxLabel > input[type="checkbox"] {             
     width: 30px;
     height: 30px;
     margin: 4px;
+}
+
+.checkboxLabel {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: var(--borderColor);
+    font-weight: 400;
+}
+.checkboxLabel > input[type="checkbox"]:checked + span {
+    background-color: var(--borderColor);
+    color: #fff;
+}
+
+.workoutStausLbl {
+    font-size: clamp(1rem, 3vw, 1rem);
+    color: var(--borderColor);
+    font-weight: 500;
+    padding-right: .5rem;
 }
 
 .restWeightWrapper {
@@ -267,35 +290,10 @@ h2.middletext {
     width: 95%;
     max-width: 100%;
     height: auto;
-    padding: .45rem;
+    padding: clamp(.5rem, 3vw, 1rem);
     border-radius: .5rem;
     margin: 1rem auto;
     border: 2px solid var(--borderColor);
-}
-
-.secText {
-    font-size: clamp(1rem, 3vw, 1.4rem);
-    color: var(--borderColor);
-    font-weight: 400;
-    padding-right: .5rem;
-}
-
-.rest {
-    font-size: clamp(1rem, 3vw, 1.4rem);
-    color: var(--borderColor);
-    font-weight: 600;
-}
-
-.weight {
-    font-size: clamp(1rem, 3vw, 1.4rem);
-    color: var(--borderColor);
-    font-weight: 600;
-}
-
-.grid {
-    display: grid;
-    grid-template-rows: repeat(auto-fill, minmax(100%, 1fr));
-    gap: 1.5rem;
 }
 
 .card {
@@ -357,7 +355,7 @@ h2.middletext {
     flex-direction: row;
     align-items: end;
     gap: 1rem;
-    margin-right: 1.2rem;
+    margin-right: 2rem;
     width: 100%;
 }
 
@@ -376,4 +374,13 @@ h2.middletext {
     background-color: var(--buttonBgColorHover);
     color: var(--fontButtonColorHover);
     font-weight: 600;
+}
+
+/* För mobilläge, byt till kolumner */
+@media (max-width: 768px) {
+    .checkboxGrid {
+        grid-auto-columns: unset;
+        grid-auto-rows: min-content;
+        padding-top: .5rem;
+    }
 }

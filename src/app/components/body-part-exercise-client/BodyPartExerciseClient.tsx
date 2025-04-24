@@ -23,6 +23,10 @@ export default function BodyPartExerciseClient({
     const searchParams = useSearchParams();
 
     const bodyParts = useBodyParts(allExercises);
+    console.log("Body parts:", bodyParts);
+    console.log("Filtered exercises:", filteredExercises);      
+    console.log("Selected exercise:", selected);
+    console.log("allExercises:", allExercises);                               
 
     const [selectedBodyPart, setSelectedBodyPart] = useState<string>("none");
     const [selectedExercise, setSelectedExercise] = useState<string>("none");

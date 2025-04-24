@@ -3,10 +3,8 @@
 import styles from './page.module.css'
 import { fetchExerciseByBodyPart, fetchExerciseById, fetchExerciseForDropDown } from './actions';
 import { Exercise, ExerciseDropDown, PageProps } from '@/lib/interfaces';
-import ShowExerciseResultById from './components/show-exercise-result-by-id/ShowExerciseResultById';
-import WorkoutFormWrapper from './components/workout-form-wrapper/WorkoutFormWrapper';
-import ShowTheTrainingProgram from './components/show-the-training-program/ShowTheTrainingProgram';
 import Slideshow from './components/slide-show/Slideshow';
+import WorkoutAccordionClient from './components/workout-accordion-client/WorkoutAccordionClient';
 
 
 export default async function CreateWorkout({ searchParams }: PageProps) {
@@ -23,7 +21,7 @@ export default async function CreateWorkout({ searchParams }: PageProps) {
     bodyParts: exercise.bodyParts
   }));
 
-  console.log("Loading exercises for body part:", filterBy);
+  console.log("Loading exercises for body part:", allExercises);
   let filteredExercises: ExerciseDropDown[] = [];
   if (filterBy !== "none") {
 
@@ -62,17 +60,12 @@ export default async function CreateWorkout({ searchParams }: PageProps) {
         </div>
       </header>
       <main className={styles.main}>
-        <section className={styles.formSection}>
-          <WorkoutFormWrapper
-            allExercises={allExercises}
-            filteredExercises={filteredExercises}
-            selected={exerciseId}
-          />
-          <ShowExerciseResultById exercise={selectedExercise || undefined} />
-        </section>
-        <section className={styles.trainingplan}>
-          <ShowTheTrainingProgram />
-        </section>
+        <WorkoutAccordionClient
+          allExercises={allExercises}
+          filteredExercises={filteredExercises}
+          selectedExercise={selectedExercise}
+          exerciseId={exerciseId}
+        />
       </main>
     </>
   )

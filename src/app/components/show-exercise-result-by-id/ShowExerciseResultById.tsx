@@ -33,8 +33,6 @@ export default function ShowExerciseResultById({ exercise }: { exercise: Exercis
     }
     console.log('exercise.imageUrl:', exercise.gifUrl);
     return exercise === undefined ? <p>Choose exercise to see details here.</p> :
-
-    
         <div className={styles.grid}>
             <div className={styles.nameAndTargetWrapper}>
                 <h1 className={styles.headerText}>{exercise.name.charAt(0).toUpperCase() + exercise.name.slice(1)}</h1>

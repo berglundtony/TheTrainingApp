@@ -1,10 +1,8 @@
 .titleWrapper {
-    grid-area: create;
     position: relative;
     display: grid;
     align-items: center;
     text-align: center;
-    grid-template-rows: auto auto;
     background-color: rgb(37, 37, 71);
     width: 95%;
     max-width: 100%;

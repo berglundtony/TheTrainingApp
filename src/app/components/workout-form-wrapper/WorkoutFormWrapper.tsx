@@ -28,6 +28,7 @@ export default function WorkoutFormWrapper({
         set: 0,
         rep: 0,
         rest: 0,
+        setvalue: 0,
     });
     const [isSaved, setIsSaved] = useState(false);
 
@@ -43,6 +44,8 @@ export default function WorkoutFormWrapper({
             set: Number(formValues.set),
             rep: Number(formValues.rep),
             rest: Number(formValues.rest),
+            iscompleted: false,
+            setvalue: Number(formValues),
         };
         console.log("Formulär sparas...", formValues);
         try {
@@ -70,6 +73,7 @@ export default function WorkoutFormWrapper({
             set: 0,
             rep: 0,
             rest: 0,
+            setvalue: 0,
         });
         setIsSaved(false);
     };

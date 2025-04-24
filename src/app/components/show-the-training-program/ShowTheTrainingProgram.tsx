@@ -6,13 +6,13 @@ import styles from "./showthetrainingprogram.module.css";
 import { Workout } from "@/lib/supabase/types";
 import { fetchExerciseById } from "src/app/actions";
 import { Exercise } from "@/lib/interfaces";
-import  WorkoutCard from "../workout-card/WorkoutCard";
+import WorkoutCard from "../workout-card/WorkoutCard";
 
 export default function ShowTheTrainingProgram(): JSX.Element {
     const [workouts, setWorkouts] = useState<Workout[]>([]);
     const [exerciseMap, setExerciseMap] = useState<Record<string, Exercise>>({});
 
-   
+
 
     useEffect(() => {
         const loadWorkouts = async () => {
@@ -41,24 +41,22 @@ export default function ShowTheTrainingProgram(): JSX.Element {
         loadExercises();
     }, [workouts]);
 
-
-    console.log("ExerciseMap:", exerciseMap);
-    console.log("Workouts:", workouts);
-
     return (
         <>
-            <div className={styles.workoutWrapper}>
-                <h1 className={styles.title}>WORKOUT TRAINING</h1>
+            <div className={styles.container}>
+                <div className={styles.workoutWrapper}>
+                    <h1 className={styles.title}>WORKOUT TRAINING</h1>
+                </div>
             </div>
             {workouts.map((w, i) => (
-                exerciseMap[w.exercise_id] && ( 
-                <WorkoutCard
-                    key={w.id}
-                    workout={w}
-                    exercise={exerciseMap[w.exercise_id]}
-                    index={i}
-                    onDelete={(id) => setWorkouts(prev => prev.filter(w => w.exercise_id !== id))}
-                />
+                exerciseMap[w.exercise_id] && (
+                    <WorkoutCard
+                        key={w.id}
+                        workout={w}
+                        exercise={exerciseMap[w.exercise_id]}
+                        index={i}
+                        onDelete={(id) => setWorkouts(prev => prev.filter(w => w.exercise_id !== id))}
+                    />
                 )
             ))}
             <div className={styles.emptyState}>
