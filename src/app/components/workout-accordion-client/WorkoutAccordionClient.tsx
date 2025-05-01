@@ -7,7 +7,8 @@ import WorkoutFormWrapper from "../workout-form-wrapper/WorkoutFormWrapper";
 import ShowExerciseResultById from "../show-exercise-result-by-id/ShowExerciseResultById";
 import ShowTheTrainingProgram from "../show-the-training-program/ShowTheTrainingProgram";
 import styles from "./workoutAccordionClient.module.css";
-import Link from "next/link";
+import Logout from "../logout/Logout";
+
 
 type Props = {
     allExercises: ExerciseDropDown[];
@@ -24,7 +25,6 @@ export default function WorkoutAccordionClient({
 }: Props) {
     {
         const [activeTab, setActiveTab] = useState<'create' | 'program'>('program');
-
         return (
             <div className={styles.wrapper}>
                 <aside className={styles.sidebar}>
@@ -44,19 +44,20 @@ export default function WorkoutAccordionClient({
 
                 <main className={styles.mainContent}>
                     <div className={styles.btnWrapper}>
-                        <Link className={styles.loginBtn} href="login">Login</Link>
+                            <Logout />
+                   
+                            {activeTab === 'create' && (
+                                <>
+                                    <WorkoutFormWrapper
+                                        allExercises={allExercises}
+                                        filteredExercises={filteredExercises}
+                                        selected={exerciseId}
+                                    />
+                                    <ShowExerciseResultById exercise={selectedExercise || undefined} />
+                                </>
+                            )}
+                            {activeTab === 'program' && <ShowTheTrainingProgram />}
                     </div>
-                    {activeTab === 'create' && (
-                        <>
-                            <WorkoutFormWrapper
-                                allExercises={allExercises}
-                                filteredExercises={filteredExercises}
-                                selected={exerciseId}
-                            />
-                            <ShowExerciseResultById exercise={selectedExercise || undefined} />
-                        </>
-                    )}
-                    {activeTab === 'program' && <ShowTheTrainingProgram />}
                 </main>
             </div>
         );

@@ -183,6 +183,7 @@
     border-radius: 8px;
     border: 3px solid var(--borderColor);
     padding: clamp(.5rem, 3vw, 1rem);
+    text-align: left;
 }
 
 ul.instructions {
@@ -392,7 +393,7 @@ h2.middletext {
         padding-top: .5rem;
     }
 
-    .secondaryWrapper{
+    .secondaryWrapper {
         flex-direction: column;
         align-items: start;
         gap: .5rem;

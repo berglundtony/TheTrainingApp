@@ -5,9 +5,34 @@ import { fetchExerciseByBodyPart, fetchExerciseById, fetchExerciseForDropDown } 
 import { Exercise, ExerciseDropDown, PageProps } from '@/lib/interfaces';
 import Slideshow from './components/slide-show/Slideshow';
 import WorkoutAccordionClient from './components/workout-accordion-client/WorkoutAccordionClient';
+// import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createServerComponentClient } from '@/lib/supabase/supabase';
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 
 export default async function CreateWorkout({ searchParams }: PageProps) {
+  const supabase = createServerComponentClient({ cookies: () => cookies() });
+  const { data: { session } } = await supabase.auth.getSession();
+  console.log("Session in CreateWorkout:", session);
+
+  const images = [
+    "/shoulders.jpg",
+    "/draginglines.jpg",
+    "/fitnessclub.jpg",
+    "/pullups.jpg",
+    "/hantel.jpg",
+    "/barbell.jpg",
+    "/concentratecurl.jpg",
+    "/skivstang.jpg",
+    "/hantel2.jpg",
+  ];
+
+  if (!session) {
+    redirect("/login");
+  }
+  console.log("Session:", session);
+
   const rawFilterBy = searchParams?.filterBy ?? "none";
   const filterBy = decodeURIComponent(Array.isArray(rawFilterBy) ? rawFilterBy[0] : rawFilterBy);
   const exerciseParam = searchParams?.exercise ?? undefined;
@@ -40,17 +65,7 @@ export default async function CreateWorkout({ searchParams }: PageProps) {
     selectedExercise = res ?? null;
   }
 
-  const images = [
-    "/shoulders.jpg",
-    "/draginglines.jpg",
-    "/fitnessclub.jpg",
-    "/pullups.jpg",
-    "/hantel.jpg",
-    "/barbell.jpg",
-    "/concentratecurl.jpg",
-    "/skivstang.jpg",
-    "/hantel2.jpg",
-  ];
+ 
 
   return (
     <>
@@ -60,12 +75,12 @@ export default async function CreateWorkout({ searchParams }: PageProps) {
         </div>
       </header>
       <main className={styles.main}>
-        <WorkoutAccordionClient
-          allExercises={allExercises}
-          filteredExercises={filteredExercises}
-          selectedExercise={selectedExercise}
-          exerciseId={exerciseId}
-        />
+          <WorkoutAccordionClient
+            allExercises={allExercises}
+            filteredExercises={filteredExercises}
+            selectedExercise={selectedExercise}
+            exerciseId={exerciseId}
+          />
       </main>
     </>
   )

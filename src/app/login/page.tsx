@@ -1,20 +1,17 @@
-import styles from './login.module.css';
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import LoginPage from "./LoginPage";
 
-export default function Login() {
-    return (
-        <div className={styles.formWrapper}>
-            <h1>Login</h1>
-            <p>Please log in to access your training program.</p>
-            <form className={styles.form} action="/api/login" method="POST">
-                <input type="text" name="username" placeholder="Email" required />
-                <input type="password" name="password" placeholder="Password" required />
-                <div className={styles.buttonWrapper}>
-                    <label className={styles.rememberMe}>Remember me
-                        <input type="checkbox" name="remember" id="remember" />
-                    </label>
-                    <button type="submit">Login</button>
-                </div>
-            </form>
-        </div>
-    );
+export default async function LoginRoute() {
+    const supabase = createServerComponentClient({ cookies });
+    const { data: { session } } = await supabase.auth.getSession();
+
+    if (session) {
+        redirect("/"); 
+    }
+
+    return <LoginPage />;
 }
+
+

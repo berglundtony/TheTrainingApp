@@ -95,3 +95,7 @@ export interface SlideshowProps {
     images: string[];
     duration?: number;
 }
+
+export interface LoginProps{
+    onLoginSuccess: () => void;
+}
