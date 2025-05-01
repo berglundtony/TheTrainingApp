@@ -19,7 +19,7 @@
 .main {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  justify-content: center;
+  justify-content: stretch;
   font-family: Arial, sans-serif;
   color: var(--fontColor);
   width: 100%;

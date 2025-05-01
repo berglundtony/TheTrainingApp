@@ -1,6 +1,8 @@
 .container {
     display: grid;
-    padding: 1rem;
+    padding: 0rem;
+    justify-content: stretch;
+    width: 98%;
 }
 
 .exerciseWrapper {
@@ -14,7 +16,6 @@
     height: auto;
     padding: clamp(.5rem, 3vw, 1rem);
     border-radius: .5rem;
-    margin: 1rem auto;
     border: 2px solid var(--borderColor);
 
     h2.exerciseNumber {
@@ -231,13 +232,15 @@ h2.middletext {
     font-weight: 600;
     padding-right: .5rem;
 }
+
 .secText {
     font-size: clamp(1.2rem, 3vw, 1.4rem);
     color: var(--borderColor);
     font-weight: 400;
     padding: 0.2rem .5rem .2rem 0;
 }
-.rest{
+
+.rest {
     font-size: clamp(1.2rem, 3vw, 1.4rem);
     color: var(--borderColor);
     font-weight: 600;
@@ -251,7 +254,7 @@ h2.middletext {
     gap: .2rem;
 }
 
-.checkboxLabel > input[type="checkbox"] {             
+.checkboxLabel>input[type="checkbox"] {
     width: 30px;
     height: 30px;
     margin: 4px;
@@ -266,7 +269,8 @@ h2.middletext {
     color: var(--borderColor);
     font-weight: 400;
 }
-.checkboxLabel > input[type="checkbox"]:checked + span {
+
+.checkboxLabel>input[type="checkbox"]:checked+span {
     background-color: var(--borderColor);
     color: #fff;
 }
@@ -300,10 +304,12 @@ h2.middletext {
     background: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 12px;
-    padding: 1rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     transition: transform 0.2s ease-in-out;
     border: 3px solid var(--borderColor);
+    width: 100%;
+    height: auto;
+    margin-bottom: .6rem;
 
     li.exercise {
         display: flex;
@@ -381,6 +387,14 @@ h2.middletext {
     .checkboxGrid {
         grid-auto-columns: unset;
         grid-auto-rows: min-content;
+        grid-template-columns: unset;
+        grid-template-rows: repeat(auto, 1fr);
         padding-top: .5rem;
+    }
+
+    .secondaryWrapper{
+        flex-direction: column;
+        align-items: start;
+        gap: .5rem;
     }
 }

@@ -1,6 +1,7 @@
 .wrapper {
     display: flex;
-    height: 100vh;
+    height: 100%;
+    width: 100%;
 }
 
 .sidebar {
@@ -8,7 +9,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color:var(--boxColor);
+    background-color: var(--boxColor);
     border-right: 1px solid #ccc;
     padding: 0.5rem;
 }
@@ -41,10 +42,32 @@
 }
 
 .mainContent {
-    display: grid;
-    padding: 1rem;
-    overflow-y: auto;
-    justify-content: center;
     width: 100%;
-    padding: 0 2rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 0 0 .4rem;
+    box-sizing: border-box;
+}
+
+.btnWrapper {
+    text-align: right;
+    padding: 1.2rem .6rem .2rem 0;
+}
+
+.loginBtn {
+    background-color: var(--buttonBgColor);
+    color: var(--fontButtonColor);
+    font-size: 1rem;
+    padding: .75rem 1.3rem;
+    border-radius: 12px;
+    width: 6rem;
+    height: 2.8rem;
+    margin-top: auto;
+    margin-right: clamp(0.1rem, 4vw, 1.2rem);
+}
+
+.loginBtn:hover {
+    background-color: var(--buttonBgColorHover);
+    color: var(--fontButtonColorHover)
 }

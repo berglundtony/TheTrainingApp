@@ -7,6 +7,7 @@ import WorkoutFormWrapper from "../workout-form-wrapper/WorkoutFormWrapper";
 import ShowExerciseResultById from "../show-exercise-result-by-id/ShowExerciseResultById";
 import ShowTheTrainingProgram from "../show-the-training-program/ShowTheTrainingProgram";
 import styles from "./workoutAccordionClient.module.css";
+import Link from "next/link";
 
 type Props = {
     allExercises: ExerciseDropDown[];
@@ -42,6 +43,9 @@ export default function WorkoutAccordionClient({
                 </aside>
 
                 <main className={styles.mainContent}>
+                    <div className={styles.btnWrapper}>
+                        <Link className={styles.loginBtn} href="login">Login</Link>
+                    </div>
                     {activeTab === 'create' && (
                         <>
                             <WorkoutFormWrapper

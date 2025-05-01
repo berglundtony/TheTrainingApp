@@ -1,0 +1,81 @@
+.formWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin: 2rem auto;
+    max-width: 400px;
+    width: 100%;
+    max-width: 400px;
+    margin: 1rem auto;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-start;
+    gap: 1rem;
+    width: 80%;
+
+    input {
+        height: 1.65rem;
+        width: 100%;
+        font-weight: 400;
+        font-size: .9rem;
+        padding: .5rem;
+        border-radius: .3rem;
+        border: 1px solid #000;
+        margin: 0 .3rem 0 0;
+        background-color: var(--fontButtonColor);
+    }
+
+    button {
+        background-color: var(--buttonBgColor);
+        color: var(--fontButtonColor);
+        font-size: 1rem;
+        padding: .45rem 1.3rem;
+        border-radius: 12px;
+        width: 6rem;
+        height: 2.2rem;
+        margin-top: auto;
+        margin-right: clamp(0.1rem, 4vw, 1.2rem);
+    }
+
+    button:hover {
+        background-color: var(--buttonBgColorHover);
+        color: var(--fontButtonColorHover)
+    }
+
+    .buttonWrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        padding-top: .8rem;
+        gap: 1rem;
+
+        label.rememberMe {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+            font-size: 1rem;
+            color: var(--fontColor);
+            font-weight: 600;
+        }
+
+        label.rememberMe input {
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-right: .5rem;
+            cursor: pointer;
+        }
+
+        button {
+            margin-left: auto;
+            margin-right: 0;
+        }
+    }
+}

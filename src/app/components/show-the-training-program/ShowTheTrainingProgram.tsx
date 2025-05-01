@@ -12,8 +12,6 @@ export default function ShowTheTrainingProgram(): JSX.Element {
     const [workouts, setWorkouts] = useState<Workout[]>([]);
     const [exerciseMap, setExerciseMap] = useState<Record<string, Exercise>>({});
 
-
-
     useEffect(() => {
         const loadWorkouts = async () => {
             const result = await fetchWorkouts();
