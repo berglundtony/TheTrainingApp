@@ -2,14 +2,30 @@
 
 import { LoginProps } from '@/lib/interfaces';
 import styles from './login.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase/supabase';
+import Link from 'next/link';
 
 export default function Login({ onLoginSuccess}: LoginProps) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
+
+    if (rememberMe) {
+        localStorage.setItem('rememberedEmail', email);
+    } else {
+        localStorage.removeItem('rememberedEmail');
+    }
+
+    useEffect(() => {
+        const savedEmail = localStorage.getItem('rememberedEmail');
+        if (savedEmail) {
+            setEmail(savedEmail);
+            setRememberMe(true);
+        }
+    }, []);
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -52,7 +68,12 @@ export default function Login({ onLoginSuccess}: LoginProps) {
                     required />
                 <div className={styles.buttonWrapper}>
                     <label className={styles.rememberMe}>Remember me
-                        <input type="checkbox" name="remember" id="remember" />
+                        <input type="checkbox"
+                            name="remember"
+                            id="remember"
+                            checked={rememberMe}
+                            onChange={(e) => setRememberMe(e.target.checked)}
+                        />
                     </label>
                     <button type="submit" disabled={loading}>
                        Login
@@ -60,6 +81,9 @@ export default function Login({ onLoginSuccess}: LoginProps) {
                 </div>
                 {error && <p className={styles.errorMessage}>{error}</p>}
             </form>
+            <Link href="/create-user" className={styles.createUserLink}>
+                Create user 
+            </Link>
         </div>
     );
 }

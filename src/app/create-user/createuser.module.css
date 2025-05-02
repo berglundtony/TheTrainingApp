@@ -35,7 +35,7 @@
         font-size: 1rem;
         padding: .45rem 1.3rem;
         border-radius: 12px;
-        width: 6rem;
+        width: 10rem;
         height: 2.2rem;
         margin-top: auto;
         margin-right: clamp(0.1rem, 4vw, 1.2rem);
@@ -78,24 +78,4 @@
             margin-right: 0;
         }
     }
-}
-a.createUserLink {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: .8rem;
-    color: var(--fontColor);
-    font-weight: 600;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-a.createUserLink:hover {
-    color: var(--buttonBgColorHover);
-}
-
-.error {
-    font-size: 1rem;
-    color: red;
 }

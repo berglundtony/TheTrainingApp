@@ -129,6 +129,7 @@ body {
     border-radius: 8px;
     border: 3px solid var(--borderColor);
     padding: .6rem;
+    text-align: left;
 }
 
 ul.instructions {
@@ -188,10 +189,6 @@ h2.middletext {
         justify-content: flex-start;
         flex-direction: column;
     }
-
-    /* ul.secondaryMuscles li {
-        display: inline-block;
-    } */
 
     .nameAndTargetWrapper {
         flex-direction: column;
