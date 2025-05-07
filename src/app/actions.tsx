@@ -121,6 +121,7 @@ export async function fetchExerciseByBodyPart(bodyPartName: string): Promise<Exe
 };
 
 export async function fetchExerciseById(exerciseId: string): Promise<Exercise | null> {
+
     if (!exerciseId || exerciseId === "none") {
         console.warn("Ogiltigt exerciseId:", exerciseId);
         return null;

@@ -7,6 +7,8 @@ export default async function LoginRoute() {
     const supabase = createServerComponentClient({ cookies });
     const { data: { session } } = await supabase.auth.getSession();
 
+    console.log(session?.user?.id); 
+
     if (session) {
         redirect("/"); 
     }

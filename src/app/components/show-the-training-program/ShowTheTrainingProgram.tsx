@@ -15,6 +15,7 @@ export default function ShowTheTrainingProgram(): JSX.Element {
     useEffect(() => {
         const loadWorkouts = async () => {
             const result = await fetchWorkouts();
+            console.log("Fetched workouts:", result);
             setWorkouts(result);
         };
         loadWorkouts();
@@ -32,6 +33,7 @@ export default function ShowTheTrainingProgram(): JSX.Element {
                     .filter(([, exercise]) => exercise !== null) as [string, Exercise][]
             );
             console.log("ExerciseObj:", workouts);
+  
 
             setExerciseMap(exerciseObj);
         };

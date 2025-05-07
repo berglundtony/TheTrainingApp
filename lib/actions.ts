@@ -1,8 +1,7 @@
 "use server";
 
 import { supabase } from "@/lib/supabase/supaBaseClient";
-// import { Exercise } from "./interfaces";
-
+import { Workout } from "./supabase/types";
 
 export async function fetchWorkouts() {
     const { data, error } = await supabase.from('workouts').select('*');
@@ -10,6 +9,19 @@ export async function fetchWorkouts() {
     if (error) {
         console.error('Fel vid hämtning:', error.message);
         return [];
+    }
+
+    return data;
+}
+
+export async function saveWorkout(workout: Workout) {
+    const { data, error } = await supabase
+        .from('workouts')
+        .insert([workout]);
+
+    if (error) {
+        console.error('Fel vid sparning:', error.message);
+        throw error;
     }
 
     return data;

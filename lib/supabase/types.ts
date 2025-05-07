@@ -12,4 +12,5 @@ export type Workout = {
     setvalue: number;
     superset?: boolean;
     created_at?: string;
+    user_id?: string;
 };

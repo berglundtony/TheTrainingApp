@@ -4,7 +4,7 @@ import { useState } from "react";
 import CreateWorkoutClient from "../create-workout-client/CreateWorkoutClient";
 import BodyPartExerciseClient from "../body-part-exercise-client/BodyPartExerciseClient";
 import WorkoutSettingsClient from "../workout-settings-client/WorkoutSettingsClient";
-import { saveWorkout } from "@/lib/supabase/workoutApi";
+import { saveWorkout } from "@/lib/actions";
 import { ExerciseDropDown } from "@/lib/interfaces";
 import styles from "./WorkoutFormWrapper.module.css"
 import Image from "next/image";
