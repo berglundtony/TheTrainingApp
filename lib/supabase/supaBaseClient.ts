@@ -10,20 +10,3 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-export async function saveWorkout(workout: Omit<Workout, 'id' | 'created_at'>) {
-    const { data, error } = await supabase
-        .from('workouts')
-        .insert([
-            {
-                ...workout,
-                created_at: new Date().toISOString(),
-            },
-        ]);
-
-    if (error) {
-        console.error('Fel vid sparning:', error);
-        throw error;
-    }
-
-    return data;
-}

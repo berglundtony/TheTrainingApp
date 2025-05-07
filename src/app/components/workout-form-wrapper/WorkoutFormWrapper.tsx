@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreateWorkoutClient from "../create-workout-client/CreateWorkoutClient";
 import BodyPartExerciseClient from "../body-part-exercise-client/BodyPartExerciseClient";
 import WorkoutSettingsClient from "../workout-settings-client/WorkoutSettingsClient";
