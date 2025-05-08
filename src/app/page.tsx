@@ -65,8 +65,6 @@ export default async function CreateWorkout({ searchParams }: PageProps) {
     selectedExercise = res ?? null;
   }
 
- 
-
   return (
     <>
       <header className={styles.headers}>

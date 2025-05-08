@@ -13,3 +13,18 @@ export type Workout = {
     superset?: boolean;
     created_at?: string;
 };
+
+export interface WorkoutData {
+    day: string;
+    week: string;
+    iscompleted: boolean;
+    exercise_id: string;
+    body_part?: string;
+    weight: number;
+    set: number;
+    rep: number;
+    rest: number;
+    setvalue: number;
+    superset?: boolean;
+    [key: string]: unknown;
+}

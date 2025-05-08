@@ -1,4 +1,5 @@
 "use client";
+
 import { Exercise } from "@/lib/interfaces";
 import { Workout } from "@/lib/supabase/types";
 import { useImageUrl } from "../use-image/useImage";
@@ -22,13 +23,13 @@ export default function WorkoutCard({ workout, exercise, index, onDelete }:
 
 
     useEffect(() => {
-        if (workout.setvalue) {
+        if (workout.setvalue !== undefined) {
             setCheckedSets(Array(workout.set).fill(false).map((_, i) => i < workout.setvalue));
         }
-        if (workout.iscompleted) {
+        if (workout.iscompleted !== undefined) {
             setIsCompleted(workout.iscompleted);
         }
-    }, [workout.iscompleted, workout.setvalue, workout.set]);
+    }, [workout.setvalue, workout.iscompleted, workout.set]);
 
     const handleIsCompletedChange = async (checked: boolean) => {
         setIsCompleted(checked);
@@ -61,16 +62,16 @@ export default function WorkoutCard({ workout, exercise, index, onDelete }:
             });
     };
 
-    const deleteTraining = async (exercise_id: string) => {
+    const deleteTraining = async (id: string) => {
         const { error } = await supabase
             .from("workouts")
             .delete()
-            .eq("exercise_id", exercise_id);
+            .eq("id", id);
 
         if (error) {
             console.error("Kunde inte ta bort övningen:", error.message);
         } else {
-            onDelete(exercise_id);
+            onDelete(id);
         }
     };
 
@@ -206,7 +207,7 @@ export default function WorkoutCard({ workout, exercise, index, onDelete }:
                             />
                         </div>
                         <div className={styles.buttonWrapper}>
-                            <button className={styles.deleteButton} onClick={() => deleteTraining(workout.exercise_id)}>
+                            <button className={styles.deleteButton} onClick={() => workout.id && deleteTraining(workout.id.toString())}>
                                 Delete
                             </button>
                         </div>

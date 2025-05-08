@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import CreateWorkoutClient from "../create-workout-client/CreateWorkoutClient";
 import BodyPartExerciseClient from "../body-part-exercise-client/BodyPartExerciseClient";
 import WorkoutSettingsClient from "../workout-settings-client/WorkoutSettingsClient";
-import { saveWorkout } from "@/lib/supabase/workoutApi";
+import { useSession } from "@supabase/auth-helpers-react";
+import { saveWorkout } from "@/lib/actions";
 import { ExerciseDropDown } from "@/lib/interfaces";
 import styles from "./WorkoutFormWrapper.module.css"
 import Image from "next/image";
@@ -32,9 +33,26 @@ export default function WorkoutFormWrapper({
     });
     const [isSaved, setIsSaved] = useState(false);
 
+    const session = useSession(); 
+
+    useEffect(() => {
+        if (session) {
+            console.log("Aktiv session:", session);
+        } else {
+            console.log("Ingen aktiv session.");
+        }
+    }, [session]);
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (!session?.access_token) {
+            console.error("Ingen access token");
+            return; // Om ingen access token finns, stoppa sparningen
+        }
+        
         const workout = {
+            user_id: session.user.id, 
             day: selectedDay,
             week: selectedWeek,
             exercise_id: exerciseId,
@@ -45,14 +63,14 @@ export default function WorkoutFormWrapper({
             rep: Number(formValues.rep),
             rest: Number(formValues.rest),
             iscompleted: false,
-            setvalue: Number(formValues),
+            setvalue: Number(formValues.setvalue),
         };
         console.log("Formulär sparas...", formValues);
         try {
-            const data = await saveWorkout(workout);
+            const data = await saveWorkout(workout, session.access_token);
             console.log("Passet sparades!", data);
             setIsSaved(true);
-
+            setTimeout(() => resetForm(), 1500);
             // Återställ formuläret efter en liten stund
             setTimeout(() => {
                 resetForm();
