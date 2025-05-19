@@ -11,6 +11,7 @@ import Logout from "../logout/Logout";
 
 
 type Props = {
+    access_token: string;
     allExercises: ExerciseDropDown[];
     filteredExercises: ExerciseDropDown[];
     selectedExercise: Exercise | null;
@@ -18,6 +19,7 @@ type Props = {
 };
 
 export default function WorkoutAccordionClient({
+    access_token,
     allExercises,
     filteredExercises,
     selectedExercise,
@@ -44,19 +46,20 @@ export default function WorkoutAccordionClient({
 
                 <main className={styles.mainContent}>
                     <div className={styles.btnWrapper}>
-                            <Logout />
-                   
-                            {activeTab === 'create' && (
-                                <>
-                                    <WorkoutFormWrapper
-                                        allExercises={allExercises}
-                                        filteredExercises={filteredExercises}
-                                        selected={exerciseId}
-                                    />
-                                    <ShowExerciseResultById exercise={selectedExercise || undefined} />
-                                </>
-                            )}
-                            {activeTab === 'program' && <ShowTheTrainingProgram />}
+                        <Logout />
+
+                        {activeTab === 'create' && (
+                            <>
+                                <WorkoutFormWrapper
+                                    access_token={access_token}
+                                    allExercises={allExercises}
+                                    filteredExercises={filteredExercises}
+                                    selected={exerciseId}
+                                />
+                                <ShowExerciseResultById exercise={selectedExercise || undefined} />
+                            </>
+                        )}
+                        {activeTab === 'program' && <ShowTheTrainingProgram />}
                     </div>
                 </main>
             </div>

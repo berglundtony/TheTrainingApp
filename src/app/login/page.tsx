@@ -1,19 +1,25 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import LoginPage from "./LoginPage";
+'use client';
 
-export default async function LoginRoute() {
-    const supabase = createServerComponentClient({ cookies });
-    const { data: { session } } = await supabase.auth.getSession();
+import { useEffect } from 'react';
+import Login from '@/src/app/components/login/Login'
+import { createClient } from '@/src/app/utils/supabase/client'
+// import styles from './page.module.css'
+import { useRouter } from 'next/navigation';
 
-    console.log(session?.user?.id); 
 
-    if (session) {
-        redirect("/"); 
-    }
+export default function LoginRoute() {
+  const supabase = createClient();
+  const router = useRouter();
 
-    return <LoginPage />;
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        router.replace('/');
+      }
+    });
+  }, [router, supabase]);
+
+
+  return <Login onLoginSuccess={() => router.replace('/')} />;
 }
-
-
+  

@@ -3,21 +3,16 @@
 import { LoginProps } from '@/lib/interfaces';
 import styles from './login.module.css';
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase/supabase';
+import { createClient } from 'src/app/utils/supabase/client';
 import Link from 'next/link';
 
-export default function Login({ onLoginSuccess}: LoginProps) {
+export default function Login({ onLoginSuccess }: LoginProps) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
-
-    if (rememberMe) {
-        localStorage.setItem('rememberedEmail', email);
-    } else {
-        localStorage.removeItem('rememberedEmail');
-    }
+    const supabase = createClient();
 
     useEffect(() => {
         const savedEmail = localStorage.getItem('rememberedEmail');
@@ -27,32 +22,44 @@ export default function Login({ onLoginSuccess}: LoginProps) {
         }
     }, []);
 
+    useEffect(() => {
+        if (rememberMe) {
+            localStorage.setItem('rememberedEmail', email);
+        } else {
+            localStorage.removeItem('rememberedEmail');
+        }
+    }, [rememberMe, email]);
+
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
         setError(null);
-        const {data, error} = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signInWithPassword({
             email: email,
             password: password,
         });
         if (error) {
-            // setError('Login failed. Please check your credentials.');
-            // return;
-            setError("Login failed. Please check your credentials.");
+            if (error.message.includes("Invalid login credentials")) {
+                setError("Login failed. Please check your credentials..");
+            } else {
+                setError("something went wrong, try again later.");
+            }
+
             setLoading(false);
-            console.error("Login failed:", error.message);
-        } else { 
-            setError(null);
-            console.log("Login succeeded", data);
+
+        } else {
+            const { data: user } = await supabase.auth.getUser();
+            if (user) {
+                console.log("Login succeeded", data);
+            }
             onLoginSuccess();
-            console.log("Login succeeded, calling onLoginSuccess");
         }
     }
     return (
         <div className={styles.formWrapper}>
             <h1>Login</h1>
             <p>Please log in to access your training program.</p>
-            <form className={styles.form} onSubmit={handleLogin}>
+            <form className={styles.form} onSubmit={(e) => handleLogin(e)}>
                 <input type="text"
                     name="email"
                     value={email}
@@ -76,14 +83,15 @@ export default function Login({ onLoginSuccess}: LoginProps) {
                         />
                     </label>
                     <button type="submit" disabled={loading}>
-                       Login
+                        Login
                     </button>
                 </div>
                 {error && <p className={styles.errorMessage}>{error}</p>}
             </form>
             <Link href="/create-user" className={styles.createUserLink}>
-                Create user 
+                Create user
             </Link>
         </div>
     );
 }
+

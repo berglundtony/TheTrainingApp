@@ -1,8 +1,9 @@
 "use client";
+
 import { Exercise } from "@/lib/interfaces";
 import { Workout } from "@/lib/supabase/types";
 import { useImageUrl } from "../use-image/useImage";
-import { supabase } from "@/lib/supabase/supaBaseClient";
+import { createClient } from "@/src/app/utils/supabase/client";
 import styles from "./workoutcard.module.css";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -19,16 +20,17 @@ export default function WorkoutCard({ workout, exercise, index, onDelete }:
     const imageUrl = useImageUrl(exercise);
     const [checkedSets, setCheckedSets] = useState<boolean[]>(Array(workout.set).fill(false));
     const [isCompleted, setIsCompleted] = useState<boolean>(workout.iscompleted ?? false);
+    const supabase = createClient();
 
 
     useEffect(() => {
-        if (workout.setvalue) {
+        if (workout.setvalue !== undefined) {
             setCheckedSets(Array(workout.set).fill(false).map((_, i) => i < workout.setvalue));
         }
-        if (workout.iscompleted) {
+        if (workout.iscompleted !== undefined) {
             setIsCompleted(workout.iscompleted);
         }
-    }, [workout.iscompleted, workout.setvalue, workout.set]);
+    }, [workout.setvalue, workout.iscompleted, workout.set]);
 
     const handleIsCompletedChange = async (checked: boolean) => {
         setIsCompleted(checked);
@@ -61,16 +63,23 @@ export default function WorkoutCard({ workout, exercise, index, onDelete }:
             });
     };
 
-    const deleteTraining = async (exercise_id: string) => {
-        const { error } = await supabase
-            .from("workouts")
-            .delete()
-            .eq("exercise_id", exercise_id);
+    const deleteTraining = async (id: string) => {
+        const confirmed = window.confirm("Are you sure to delete this activity?");
+        if (!confirmed) return;
+        const res = await fetch('/api/delete-exercise', {
+            method: 'POST',
+            body: JSON.stringify({ id: id }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
 
-        if (error) {
-            console.error("Kunde inte ta bort övningen:", error.message);
+        const result = await res.json();
+        if (result.error) {
+            console.error("Fel:", result.error);
         } else {
-            onDelete(exercise_id);
+            console.log("Raderat!");
+            onDelete(id);
         }
     };
 
@@ -84,17 +93,17 @@ export default function WorkoutCard({ workout, exercise, index, onDelete }:
                             <h3 className={styles.headerWeekAndDay}> {workout.week}, {workout.day}</h3>
                             <h3 className={styles.superset}>{workout.superset ? 'Superset 1' : 'Superset 2'}</h3>
                             <div className={styles.checkboxWrapper}>
-                            <label className={styles.checkboxLabel}>
-                                <span className={styles.workoutStausLbl}>Workout status:</span>
-                                <input
-                                    type="checkbox"
-                                    checked={isCompleted}
-                                    onChange={async (e) => {
-                                        const checked = e.target.checked;
-                                        await handleIsCompletedChange(checked)
-                                    }}
-                                />
-                            </label>
+                                <label className={styles.checkboxLabel}>
+                                    <span className={styles.workoutStausLbl}>Workout status:</span>
+                                    <input
+                                        type="checkbox"
+                                        checked={isCompleted}
+                                        onChange={async (e) => {
+                                            const checked = e.target.checked;
+                                            await handleIsCompletedChange(checked)
+                                        }}
+                                    />
+                                </label>
                             </div>
                         </div>
                         <div className={styles.nameAndTargetWrapper}>
@@ -206,7 +215,7 @@ export default function WorkoutCard({ workout, exercise, index, onDelete }:
                             />
                         </div>
                         <div className={styles.buttonWrapper}>
-                            <button className={styles.deleteButton} onClick={() => deleteTraining(workout.exercise_id)}>
+                            <button className={styles.deleteButton} onClick={() => workout.id && deleteTraining(workout.id.toString())}>
                                 Delete
                             </button>
                         </div>

@@ -1,42 +1,65 @@
 "use server";
 
-import { supabase } from "@/lib/supabase/supaBaseClient";
-import { Workout } from "./supabase/types";
+import { createClient } from '@/src/app/utils/supabase/server'
+import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+import type { Workout, WorkoutData } from "@/lib/supabase/types";
 
-export async function fetchWorkouts() {
-    const { data, error } = await supabase.from('workouts').select('*');
 
-    if (error) {
-        console.error('Fel vid hämtning:', error.message);
+export async function fetchWorkouts(): Promise<Workout[]> {
+    const supabase = await createClient();
+
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+
+    if (userError || !user) {
+        console.error("Ingen giltig användare", userError);
         return [];
     }
 
-    return data;
-}
+    const user_id = user.id;
 
-export async function saveWorkout(workout: Workout) {
-    const { data, error } = await supabase
-        .from('workouts')
-        .insert([workout]);
+    const { data, error: fetchError } = await supabase.from('workouts').select('*').eq('user_id', user_id);
 
-    if (error) {
-        console.error('Fel vid sparning:', error.message);
-        throw error;
+    if (fetchError) {
+        console.error('Fel vid hämtning:', fetchError.message);
+        return [];
     }
 
-    return data;
+    return data as Workout[]
 }
 
-export async function deleteExercise(exercise_id: number) {
-    const { data, error } = await supabase
-        .from('workouts')
-        .delete()
-        .eq('exercise_id', exercise_id);
 
-    if (error) {
-        console.error('Fel vid radering:', error.message);
-        return null;
+export const saveWorkout = async (
+    workoutData: WorkoutData,
+    accessToken: string): Promise<{ success: true }> => {
+    // Skapa en "ad-hoc"-Supabase-klient som skickar med vårt access token
+    const supabase = createSupabaseClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        {
+            global: {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            },
+        }
+    )
+
+
+    console.log('Access Token:', accessToken);
+
+    const { error: insertError } = await supabase
+        .from('workouts')
+        .insert([{ ...workoutData }])
+
+
+    if (insertError) {
+        console.error('Insert error:', insertError)
+        throw new Error('Failed to save workout: ' + insertError.message)
     }
 
-    return data;
-}
+    return { success: true };
+};
+
+
+
+
