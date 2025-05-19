@@ -39,17 +39,20 @@ export default function Login({ onLoginSuccess }: LoginProps) {
             password: password,
         });
         if (error) {
-            // setError('Login failed. Please check your credentials.');
-            // return;
-            setError("Login failed. Please check your credentials.");
-            setLoading(false);
-            console.error("Login failed:", error.message);
-        } else {
-            const { data: sessionData } = await supabase.auth.getSession();
-            if (sessionData.session) {
-                console.log("Login succeeded", data);
-                onLoginSuccess();
+            if (error.message.includes("Invalid login credentials")) {
+                setError("Login failed. Please check your credentials..");
+            } else {
+                setError("something went wrong, try again later.");
             }
+
+            setLoading(false);
+
+        } else {
+            const { data: user } = await supabase.auth.getUser();
+            if (user) {
+                console.log("Login succeeded", data);
+            }
+            onLoginSuccess();
         }
     }
     return (
