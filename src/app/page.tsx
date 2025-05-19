@@ -5,17 +5,26 @@ import { fetchExerciseByBodyPart, fetchExerciseById, fetchExerciseForDropDown } 
 import { Exercise, ExerciseDropDown, PageProps } from '@/lib/interfaces';
 import Slideshow from './components/slide-show/Slideshow';
 import WorkoutAccordionClient from './components/workout-accordion-client/WorkoutAccordionClient';
-// import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { createServerComponentClient } from '@/lib/supabase/supabase';
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+// Update the import path below to the correct location of your Supabase client
+import { createClient } from "src/app/utils/supabase/server";
+import { redirect } from 'next/navigation';
 
 
 export default async function CreateWorkout({ searchParams }: PageProps) {
-  const supabase = createServerComponentClient({ cookies: () => cookies() });
-  const { data: { session } } = await supabase.auth.getSession();
-  console.log("Session in CreateWorkout:", session);
+  const supabase = await createClient();
 
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  if (userError || !user) {
+    redirect("/login");
+  }
+  // } else {
+  //   const userId = user.id
+  // }
+
+  // Retrieve the access token for the authenticated user
+  const { data: { session } } = await supabase.auth.getSession();
+  const access_token = session?.access_token ?? "";
+ 
   const images = [
     "/shoulders.jpg",
     "/draginglines.jpg",
@@ -28,10 +37,10 @@ export default async function CreateWorkout({ searchParams }: PageProps) {
     "/hantel2.jpg",
   ];
 
-  if (!session) {
-    redirect("/login");
-  }
-  console.log("Session:", session);
+  // if (!user) {
+  //   redirect("/login");
+  // }
+  // console.log("User:",user);
 
   const rawFilterBy = searchParams?.filterBy ?? "none";
   const filterBy = decodeURIComponent(Array.isArray(rawFilterBy) ? rawFilterBy[0] : rawFilterBy);
@@ -73,7 +82,8 @@ export default async function CreateWorkout({ searchParams }: PageProps) {
         </div>
       </header>
       <main className={styles.main}>
-          <WorkoutAccordionClient
+        <WorkoutAccordionClient
+            access_token={access_token}
             allExercises={allExercises}
             filteredExercises={filteredExercises}
             selectedExercise={selectedExercise}

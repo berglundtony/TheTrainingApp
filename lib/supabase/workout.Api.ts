@@ -1,5 +1,5 @@
 
-import { SupabaseClient, User } from "@supabase/supabase-js";
+import { SupabaseClient } from "@supabase/supabase-js";
 
 interface WorkoutData {
     title: string;
@@ -9,7 +9,7 @@ interface WorkoutData {
     [key: string]: unknown; // For additional optional fields
 }
 
-interface User {
+interface LocalUser {
     id: string;
     [key: string]: any; // For additional optional fields
 }
@@ -22,7 +22,7 @@ export const saveWorkout = async (
     const {
         data: { user },
         error: userError,
-    }: { data: { user: User | null }; error: Error | null } = await supabase.auth.getUser();
+    }: { data: { user: LocalUser | null }; error: Error | null } = await supabase.auth.getUser();
 
     if (userError || !user) {
         throw new Error("User is not authenticated");

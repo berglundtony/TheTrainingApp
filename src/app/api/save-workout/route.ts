@@ -1,11 +1,10 @@
 // app/api/save-workout/route.ts
 
-import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import { createClient } from '../../utils/supabase/server'
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-    const supabase = createServerActionClient({ cookies });
+    const supabase = await createClient();
     const { data: { user }, error: authError } = await supabase.auth.getUser();
 
     if (authError || !user) {
@@ -18,7 +17,7 @@ export async function POST(request: Request) {
         .from("workouts")
         .insert({
             ...body,
-            user_id: user.id, // lägg till inloggade användarens ID
+            user_id: user.id,
         });
 
     if (error) {

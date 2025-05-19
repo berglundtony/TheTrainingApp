@@ -3,7 +3,7 @@
 import { LoginProps } from '@/lib/interfaces';
 import styles from './login.module.css';
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase/supabase';
+import { createClient } from 'src/app/utils/supabase/client';
 import Link from 'next/link';
 
 export default function Login({ onLoginSuccess }: LoginProps) {
@@ -12,12 +12,7 @@ export default function Login({ onLoginSuccess }: LoginProps) {
     const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
-
-    if (rememberMe) {
-        localStorage.setItem('rememberedEmail', email);
-    } else {
-        localStorage.removeItem('rememberedEmail');
-    }
+    const supabase = createClient();
 
     useEffect(() => {
         const savedEmail = localStorage.getItem('rememberedEmail');
@@ -26,6 +21,14 @@ export default function Login({ onLoginSuccess }: LoginProps) {
             setRememberMe(true);
         }
     }, []);
+
+    useEffect(() => {
+        if (rememberMe) {
+            localStorage.setItem('rememberedEmail', email);
+        } else {
+            localStorage.removeItem('rememberedEmail');
+        }
+    }, [rememberMe, email]);
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -49,42 +52,43 @@ export default function Login({ onLoginSuccess }: LoginProps) {
             }
         }
     }
-        return (
-            <div className={styles.formWrapper}>
-                <h1>Login</h1>
-                <p>Please log in to access your training program.</p>
-                <form className={styles.form} onSubmit={(e) => handleLogin(e)}>
-                    <input type="text"
-                        name="email"
-                        value={email}
-                        placeholder="Email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        required />
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required />
-                    <div className={styles.buttonWrapper}>
-                        <label className={styles.rememberMe}>Remember me
-                            <input type="checkbox"
-                                name="remember"
-                                id="remember"
-                                checked={rememberMe}
-                                onChange={(e) => setRememberMe(e.target.checked)}
-                            />
-                        </label>
-                        <button type="submit" disabled={loading}>
-                            Login
-                        </button>
-                    </div>
-                    {error && <p className={styles.errorMessage}>{error}</p>}
-                </form>
-                <Link href="/create-user" className={styles.createUserLink}>
-                    Create user
-                </Link>
-            </div>
-        );
-    }
+    return (
+        <div className={styles.formWrapper}>
+            <h1>Login</h1>
+            <p>Please log in to access your training program.</p>
+            <form className={styles.form} onSubmit={(e) => handleLogin(e)}>
+                <input type="text"
+                    name="email"
+                    value={email}
+                    placeholder="Email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    required />
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required />
+                <div className={styles.buttonWrapper}>
+                    <label className={styles.rememberMe}>Remember me
+                        <input type="checkbox"
+                            name="remember"
+                            id="remember"
+                            checked={rememberMe}
+                            onChange={(e) => setRememberMe(e.target.checked)}
+                        />
+                    </label>
+                    <button type="submit" disabled={loading}>
+                        Login
+                    </button>
+                </div>
+                {error && <p className={styles.errorMessage}>{error}</p>}
+            </form>
+            <Link href="/create-user" className={styles.createUserLink}>
+                Create user
+            </Link>
+        </div>
+    );
+}
+

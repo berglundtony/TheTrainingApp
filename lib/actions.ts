@@ -2,9 +2,9 @@
 
 // import { supabase } from "@/lib/supabase/supaBaseClient";
 import { WorkoutData } from "./supabase/types";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { SupabaseClient } from "@supabase/supabase-js";
-import { cookies } from "next/headers";
+import { createClient } from '@/src/app/utils/supabase/server'
+import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+import { NextRequest, NextResponse } from 'next/server';
 import type { Workout } from "@/lib/supabase/types";
 // import { Exercise } from "./interfaces";
 
@@ -15,28 +15,21 @@ interface User {
 }
 
 export async function fetchWorkouts(): Promise<Workout[]> {
-    const supabase = createServerComponentClient({ cookies });
+    const supabase = await createClient();
 
-    const {
-        data: { session },
-        error: sessionError,
-    } = await supabase.auth.getSession();
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
 
-    if (sessionError) {
-        console.error('Kunde inte hämta session:', sessionError.message);
+    if (userError || !user) {
+        console.error("Ingen giltig användare", userError);
         return [];
     }
 
-    const user_id = session?.user?.id;
-    if (!user_id) {
-        console.error('Ingen användare inloggad');
-        return [];
-    }
+    const user_id = user.id;
 
-    const { data, error } = await supabase.from('workouts').select('*').eq('user_id', user_id);
+    const { data, error: fetchError } = await supabase.from('workouts').select('*').eq('user_id', user_id);
 
-    if (error) {
-        console.error('Fel vid hämtning:', error.message);
+    if (fetchError) {
+        console.error('Fel vid hämtning:', fetchError.message);
         return [];
     }
 
@@ -46,52 +39,38 @@ export async function fetchWorkouts(): Promise<Workout[]> {
 
 export const saveWorkout = async (
     workoutData: WorkoutData,
-    accessToken: string) => {
-    
-    const supabase = createServerComponentClient({ cookies });
-    // const { error: sessionError } = await supabase.auth.setSession({ access_token: accessToken, refresh_token: '' });
-    const { data: session, error } = await supabase.auth.getSession();
-    if (error || !session) {
-        throw new Error('Session not found');
-    }
+    accessToken: string): Promise<{ success: true }> => {
+    // Skapa en "ad-hoc"-Supabase-klient som skickar med vårt access token
+    const supabase = createSupabaseClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        {
+            global: {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            },
+        }
+    )
+
 
     console.log('Access Token:', accessToken);
 
-    const user = session;
+    const { error: insertError } = await supabase
+        .from('workouts')
+        .insert([{ ...workoutData }])
 
-    if (!user) {
-        throw new Error('User is not authenticated');
-    }
-
-    const { data: userData, error: userError } = await supabase.auth.getUser();
-
-    if (userError || !userData) {
-        console.error('User error:', userError);
-        throw new Error('User is not authenticated');
-    }
-
-    await supabase.auth.setSession({
-        access_token: accessToken,
-        refresh_token: '', // Fyll i om du använder refresh token också
-    });
-
-    const { error: insertError } = await supabase.from('workouts').insert([
-        {
-            ...workoutData,
-            user_id: user.session?.user.id,
-        },
-    ]);
 
     if (insertError) {
-        console.error('Insert error:', insertError);
-        throw new Error('Failed to save workout: ' + insertError.message);
+        console.error('Insert error:', insertError)
+        throw new Error('Failed to save workout: ' + insertError.message)
     }
 
     return { success: true };
 };
 
 // export async function saveWorkout(data: Partial<Workout>) {
-  
+
 //     const supabase = createServerActionClient({cookies});
 
 //     const { data: { user } } = await supabase.auth.getUser();
@@ -105,7 +84,7 @@ export const saveWorkout = async (
 //         .insert({
 //             ...data,
 //             user_id: user.id,
-          
+
 //             created_at: new Date().toISOString(),
 //         });
 
@@ -116,23 +95,4 @@ export const saveWorkout = async (
 //     return { success: true };
 // }
 
-export async function deleteExercise(
-    exercise_id: number,
-    supabase: SupabaseClient
-): Promise<any> {
-    const { data, error } = await supabase
-        .from('workouts')
-        .delete()
-        .eq('exercise_id', exercise_id);
 
-    if (error) {
-        console.error('Fel vid radering:', error.message);
-        return null;
-    }
-
-    return data;
-}
-
-function getAccessTokenFromAuth() {
-    throw new Error("Function not implemented.");
-}

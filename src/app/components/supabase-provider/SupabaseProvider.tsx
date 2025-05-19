@@ -1,6 +1,6 @@
 "use client";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
-import { createClient } from "@/lib/supabase/client";
+import { createClient } from "src/app/utils/supabase/client";
 import { Session } from "@supabase/auth-helpers-react";
 
 export function SupabaseProvider({
