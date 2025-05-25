@@ -91,6 +91,9 @@ export default function Login({ onLoginSuccess }: LoginProps) {
             <Link href="/create-user" className={styles.createUserLink}>
                 Create user
             </Link>
+            <Link href="/forgot-password" className={styles.forgotPassword}>
+                ForgotPassword
+            </Link>
         </div>
     );
 }

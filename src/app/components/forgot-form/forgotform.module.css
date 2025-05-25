@@ -1,0 +1,242 @@
+.backBtn {
+    filter: invert(var(--inverted));
+    background-image: url('/assets/icon-chevron.svg');
+    background-repeat: no-repeat;
+    background-size: 2rem;
+    background-position: center;
+    background-color: transparent;
+    rotate: 180deg;
+    width: 3rem;
+    height: 3rem;
+    border: 0;
+    position: absolute;
+    top: 0.5rem;
+    left: 0;
+    margin-left: 0.5rem;
+}
+
+.backBtn:hover {
+    cursor: pointer;
+}
+
+.backBtn:active {
+    scale: 0.9;
+}
+
+.sendagain {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    max-width: 40rem;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.4rem;
+    gap: 1rem;
+    max-width: 40rem;
+}
+
+.contentContainer {
+    display: flex;
+    font-family: inherit;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .8rem;
+    margin-top: 2rem !important;
+    max-width: 30rem;
+}
+
+.header {
+    color: var(--fgcolor);
+    background: transparent;
+    font-size: 1.5rem;
+    font-family: inherit;
+    font-weight: 700;
+    margin-top: 1rem;
+}
+
+.label {
+    font-size: var(--font-small);
+    font-family: inherit;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: block;
+    align-self: flex-start;
+}
+
+
+.error {
+    color: red;
+    margin-top: 10px;
+}
+
+.inputContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    padding: 0 1.2rem;
+
+    .inputGroup {
+        width: 100%;
+        position: relative;
+    }
+
+    .input {
+        background-color: var(--bgcolor);
+        color: var(--fgcolor);
+        width: 100%;
+        font-family: inherit;
+        font-size: var(--font-regular);
+        padding: .5rem 1rem;
+        border-radius: var(--radius);
+        line-height: 2rem;
+        outline: none;
+        border: .0625rem solid var(--secondary-light-grey);
+    }
+
+    .input:focus-visible {
+        outline: .1875rem solid var(--maincolor);
+        border-color: transparent;
+    }
+
+    .buttonContainer {
+        margin-top: 1rem;
+
+        .submitButton {
+            border: none;
+            outline: none;
+            width: 100%;
+            padding: var(--button-padding);
+            border-radius: var(--radius);
+            background: var(--maincolor);
+            color: #fff;
+            text-align: center;
+            font-size: var(--font-regular);
+            font-weight: 700;
+            font-family: inherit;
+        }
+    }
+}
+
+.textDiv {
+    margin: .8em 1.2rem;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 1.15rem;
+    line-height: 18.75px;
+    text-align: center;
+    color: var(--secondary-grey);
+}
+
+.iconDiv {
+    filter: invert(var(--inverted));
+    width: clamp(6rem, 12rem, 70vw);
+    aspect-ratio: 1/1;
+    background-image: url('/assets/icon-forgotpass.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+}
+
+.iconDiv2 {
+    filter: invert(var(--inverted));
+    width: clamp(6rem, 12rem, 70vw);
+    aspect-ratio: 1/1;
+    background-image: url('/assets/icon-emailcheck.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+}
+
+.clearButton {
+    position: absolute;
+    right: 2.2rem;
+    top: 1rem;
+    border: none;
+    cursor: pointer;
+    width: 1rem;
+    height: 1rem;
+    background: url('/assets/icon-x.svg');
+    filter: brightness(50%) opacity(30%);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+::placeholder {
+    color: (0, 0, 0, 0.3);
+    opacity: 1;
+    /* Firefox */
+    font-family: inherit;
+    font-weight: 500;
+}
+
+.linkBtn {
+    cursor: pointer;
+    margin: 1.5rem;
+    width: 90vw;
+    border-radius: 50px;
+    max-width: 440px;
+    margin-bottom: 2rem;
+    margin-top: 3rem;
+}
+
+.lineThrough {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.lineThrough::before,
+.lineThrough::after {
+    content: '';
+    flex: 1;
+    background: rgba(0, 0, 0, 0.3);
+    height: 1px;
+    margin: 0 10px;
+    /* Space around the text */
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.text {
+    white-space: nowrap;
+    /* Prevents the text from wrapping */
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 16px;
+    font-family: 'roboto';
+    font-weight: 500;
+    letter-spacing: 0.5%;
+}
+
+.link {
+    color: var(--maincolor);
+    margin-top: 1.5rem;
+    font-family: 'roboto';
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 18.75px;
+    letter-spacing: 0.5%;
+}
+
+@media (max-height: 800px) {
+    #forgotpassword .contentContainer {
+        margin-top: 6rem;
+    }
+}
+
+@media (max-height: 500px) {
+    #forgotpassword .contentContainer {
+        margin-top: 3rem;
+    }
+}

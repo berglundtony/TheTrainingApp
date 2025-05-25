@@ -1,5 +1,5 @@
-import ForgotForm from "./forgot-form";
-// import styles from "./page.module.css";
+import ForgotForm from "../components/forgot-form/ForgotForm";
+import styles from "./page.module.css";
 
 export default function ForgotPassword() {
   return (

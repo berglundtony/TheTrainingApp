@@ -95,6 +95,22 @@ a.createUserLink:hover {
     color: var(--buttonBgColorHover);
 }
 
+a.forgotPassword {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: .8rem;
+    color: var(--fontColor);
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+a.forgotPassword:hover {
+    color: var(--buttonBgColorHover);
+}
+
 .error {
     font-size: 1rem;
     color: red;

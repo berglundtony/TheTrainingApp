@@ -2,11 +2,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { forgotPassword } from "@/utils/api-client";
-import { isApiError } from "@/utils/type-guards";
+import { forgotPassword } from "../../utils/api-client";
+import { isApiError } from "../../utils/type-guards";
 import { successForgotPasswordSent } from "@/constants";
 
-import styles from "./page.module.css";
+import styles from "./forgotform.module.css";
 
 export default function ForgotForm() {
   const [errorMessage, setErrorMessage] = useState("");

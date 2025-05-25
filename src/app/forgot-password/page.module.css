@@ -1,0 +1,8 @@
+#forgotPassword {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    max-height: 100%;
+    width: 100%;
+}
